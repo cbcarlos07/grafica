@@ -1,0 +1,36 @@
+.nome-card{
+    position: absolute;
+    margin-top: 240px;
+    margin-left: 25px;
+    font-size: 19px;
+    font-weight: bold;
+}
+.beneficiario{
+    position: absolute;
+    margin-top: 265px;
+    margin-left: 25px;
+    font-size: 12px;
+}
+
+.text-validade{
+    position: absolute;
+    margin-top: 230px;
+    margin-left: 345px;
+    font-size: 12px;
+}
+
+.validade{
+    position: absolute;
+    margin-top: 205px;
+    margin-left: 345px;
+    font-size: 19px;
+    font-weight: bold;
+}
+
+.carteira{
+    position: absolute;
+    margin-top: 150px;
+    margin-left: 50px;
+    font-size: 30px;
+    font-weight: bold;
+}
