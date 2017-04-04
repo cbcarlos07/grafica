@@ -67,12 +67,12 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                         <label for="telefone">Telefone  </label>
                         <input id="telefone" type="tel" class="form-control" required="" placeholder="(00)0000-0000"/>
                     </div>
-                    <div class="form-group col-lg-3">
+                    <div class="form-group col-lg-2">
                         <label for="observacao">Observa&ccedil;&atilde;o</label>
                         <input id="observacao" class="form-control">
                     </div>
                     <div class="form-group col-lg-3">
-                        <label for="contato">Nome Contato</label>
+                        <label for="contato">Contato</label>
                         <input id="contato" class="form-control">
                     </div>
                     <div class="form-group col-lg-3">
@@ -81,8 +81,19 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     </div>
                     <div class="col-lg-1 form-group" style="margin-top: 30px;">
                         <label></label>
-                        <a href="#" title="Clique para atualizar a lista" class="btn btn-refresh"><i class="lnr lnr-sync"></i></a>
+                        <a href="#div" title="Clique para atualizar a lista" class="btn btn-refresh"><i class="lnr lnr-sync"></i></a>
                     </div>
+                    <div class="col-lg-1 form-group" style="margin-top: 30px;">
+
+                        <a href="#div" class="btn btn-primary btn-add">Adicionar</a>
+                    </div>
+                    <div class="row"></div>
+                    <table class="table table-hover">
+                        <thead>
+                        <th>Telefone</th><th>Observacao</th><th>Contato</th><th width="1">#</th><th>Tipo</th><th></th>
+                           <tbody id="tbody"></tbody>
+                        </thead>
+                    </table>
                     <div class="row"></div>
                     <div class="panel panel-default">
                         <div class="panel-heading">
@@ -150,13 +161,27 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <script src="js/jquery.nicescroll.js"></script>
     <script src="js/scripts.js"></script>
     <script src="js/jquery.mask.js"></script>
+    <script src="js/jquery.tabletojson.min.js"></script>
     <script>
         $(document).ready(function(){
 
             $('#cep').mask('00.000-000');
 
         });
-    </script>
+        $(document).ready(function(){
+
+            //alert('Codigo da cidade: '+cidade);
+            $.post("function/tipocontato.php",
+                {
+                    'acao': "L"
+                },
+                function(data){
+                    $("#tipo").find("option").remove();
+                    $("#tipo").append(data);
+                });
+        });
+
+    </script>                                                                                                                                                   ,0ççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççç
     <script src="js/validarcpf.js"></script>
     <script src="js/validator.min.js"></script>
     <script src="js/cliente.js"></script>

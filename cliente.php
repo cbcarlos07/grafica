@@ -130,6 +130,7 @@ $pListIterator = new ClienteListIterator($lista);
                                 <th>Empresa</th>
                                 <th>Respons&aacute;vel</th>
                                 <th>CPF/CNPJ</th>
+                                <th></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -141,13 +142,26 @@ $pListIterator = new ClienteListIterator($lista);
                                 ?>
                                 <tr>
                                     <th scope="row"><?php echo $cliente->getCdCliente(); ?></th>
-                                    <td><?php echo $cliente->getNmCliente()." ".$cliente->getNmSobrenome(); ?></td>
+                                    <td><?php echo $cliente->getNmResponsavel(); ?></td>
+                                    <td><?php echo $cliente->getDsNmFantasia(); ?></td>
                                     <td><?php
-                                        $cpf1 = substr($cliente->getNrCpf(), 0,3);
-                                        $cpf2 = substr($cliente->getNrCpf(), 3,3);
-                                        $cpf3 = substr($cliente->getNrCpf(), 6,3);
-                                        $cpf4 = substr($cliente->getNrCpf(), 9,2);
-                                        echo $cpf = "$cpf1.$cpf2.$cpf3-$cpf4";
+                                        $cpfcnpj = "";
+                                        if(strlen($cliente->getNrCpfCnpj()) == 11 ) {
+                                            $cpf1 = substr($cliente->getNrCpfCnpj(), 0, 3);
+                                            $cpf2 = substr($cliente->getNrCpfCnpj(), 3, 3);
+                                            $cpf3 = substr($cliente->getNrCpfCnpj(), 6, 3);
+                                            $cpf4 = substr($cliente->getNrCpfCnpj(), 9, 2);
+                                            $cpfcnpj = "$cpf1.$cpf2.$cpf3-$cpf4";
+                                        }else{
+                                            //00.000.000/0000-00
+                                            $cpf1 = substr($cliente->getNrCpfCnpj(), 0, 2);
+                                            $cpf2 = substr($cliente->getNrCpfCnpj(), 2, 3);
+                                            $cpf3 = substr($cliente->getNrCpfCnpj(), 5, 3);
+                                            $cpf4 = substr($cliente->getNrCpfCnpj(), 8, 4);
+                                            $cpf5 = substr($cliente->getNrCpfCnpj(), 10, 2);
+                                            $cpfcnpj = "$cpf1.$cpf2.$cpf3/$cpf4-$cpf5";
+                                        }
+                                        echo $cpfcnpj;
                                         ?></td>
 
 

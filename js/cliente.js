@@ -21,21 +21,16 @@ function salvar(){
        // alert("Submit");
         var codigo      = document.getElementById('id').value;
        // alert('End: '+codigo);
-        var nome        = document.getElementById('nome').value;
-        var sobrenome   = document.getElementById('sobrenome').value;
-        var cpf         = document.getElementById('cpf').value;
-        var rg          = document.getElementById('rg').value;
-        var telefone    = document.getElementById('telefone').value;
+        var responsavel = document.getElementById('responsavel').value;
+        var empresa     = document.getElementById('empresa').value;
+        var cpfcnpj     = document.getElementById('cpfcnpj').value;
         var email       = document.getElementById('email').value;
-        var nascimento  = document.getElementById('nascimento').value;
-        var sexo        = document.getElementById('sexo').value;
-        var estadocivil = document.getElementById('estadocivil').value;
         var endereco    = document.getElementById('endereco').value;
         var numero      = document.getElementById('numero').value;
         var complemento = document.getElementById('complemento').value;
-        var senha       = document.getElementById('senha').value;
-        var senhaatual  = document.getElementById('senhaatual').value;
         var acao        = document.getElementById('acao').value;
+        var fones       = $('.table').tableToJSON();
+        var telefone    = JSON.stringify(fones);
         //alert("Numero: "+numero);
         $.ajax({
                 type    : 'post',
@@ -44,20 +39,14 @@ function salvar(){
                 beforeSend : carregando,
                 data: {
                     'id'          : codigo,
-                    'nome'        : nome,
-                    'sobrenome'   : sobrenome,
-                    'cpf'         : cpf,
-                    'rg'          : rg,
+                    'responsavel' : responsavel,
+                    'empresa'     : empresa,
+                    'cpfcnpj'         : cpfcnpj,
                     'telefone'    : telefone,
                     'email'       : email,
-                    'nascimento'  : nascimento,
-                    'sexo'        : sexo,
-                    'estadocivil' : estadocivil,
                     'endereco'    : endereco,
                     'numero'      : numero,
                     'complemento' : complemento,
-                    'senha'       : senha,
-                    'senhaatual'  : senhaatual,
                     'acao'        : acao
                 },
                 success: function (data) {
@@ -188,47 +177,26 @@ $('.btn-search').on('click', function () {
    alert('Form');
 });
 
-$("#nascimento").datetimepicker({
-    timepicker: false,
-    format: 'd/m/Y',
-    mask: true
-});
-
-
-$.datetimepicker.setLocale('pt-BR');
-
-var cmbestadocivil = $("#estadocivil");
 $('.btn-refresh').on('click', function () {
-    var id = document.getElementById('cdestadocivil').value;
+
     //alert('Codigo da cidade: '+cidade);
-    $.post("function/estadocivil.php",
+    $.post("function/tipocontato.php",
         {
-            'id': id,
             'acao': "L"
         },
         function(data){
-
-            cmbestadocivil.find("option").remove();
-            cmbestadocivil.append(data);
+            $("#tipo").find("option").remove();
+            $("#tipo").append(data);
         });
 });
 
 
 
-$(document).ready(function(){
-    var id = document.getElementById('cdestadocivil').value;
-    //alert('Codigo da cidade: '+cidade);
-    $.post("function/estadocivil.php",
-        {
-            'id': id,
-            'acao': "L"
-        },
-        function(data){
-            cmbestadocivil.find("option").remove();
-            cmbestadocivil.append(data);
-        });
 
+$(document).ready(function () {
+    $('#cpfcnpj').mask('000.000.000-00');
 });
+
 var documento = $('#cpfcnpj');
 $('.cpf').click(function(){
     documento.mask('000.000.000-00');
@@ -281,9 +249,6 @@ function buscarCEP() {
         }
     })
 }
-$('#cep').focusout(function () {
-
-});
 
 $(document).ready(function () {
     var id = document.getElementById("endereco").value;
@@ -344,6 +309,30 @@ $('#cpf').focusout(function(){
 
     }
 });
+
+$('.btn-add').on('click',function () {
+   // alert("Add");
+   var corpo = document.getElementById("tbody");
+   var telefone    = document.getElementById('telefone').value;
+   var observacao  = document.getElementById('observacao').value;
+   var contato     = document.getElementById('contato').value;
+   var tipo        = document.getElementById('tipo').value;
+   var dsTipo      = document.getElementById("tipo").options[document.getElementById("tipo").selectedIndex].text;
+   var content = "<tr>"+
+                  "  <td>"+telefone+"</td>"+
+                  "  <td>"+observacao+"</td>"+
+                  "  <td>"+contato+"</td>"+
+                  "  <td>"+tipo+"</td>"+
+                  "  <td>"+dsTipo+"</td>"+
+                  "  <td><a href='#div' class='btn btn-danger btn-remove btn-xs'>remover</a></td>"
+                 "</tr>";
+   $(corpo).append(content);
+});
+
+$("#tbody").on("click", ".btn-remove", function(e){
+    $(this).closest('tr').remove();
+});
+
 
 
 
