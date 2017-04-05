@@ -41,6 +41,7 @@ class FoneClienteDAO
      }
 
     public function update (FoneCliente $foneCliente){
+
         $this->connection =  null;
         $teste = false;
         $this->connection = new ConnectionFactory();
@@ -91,7 +92,7 @@ class FoneClienteDAO
     public function getList($cdcliente){
         require_once ("services/FoneClienteList.class.php");
         require_once ("beans/FoneCliente.class.php");
-
+        include "beans/TipoContato.class.php";
         $this->connection = null;
 
         $this->connection = new ConnectionFactory();

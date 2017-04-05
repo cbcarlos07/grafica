@@ -78,7 +78,7 @@ function add($responsavel, $empresa, $cpfcnpj, $telefone, $email,  $endereco, $n
     require_once "../beans/TipoContato.class.php";
     require_once "../beans/Endereco.class.php";
     require_once "../controller/ClienteController.class.php";
-    require_once "../controller/FoneClineteController.class.php";
+    require_once "../controller/FoneClienteController.class.php";
 
     $cliente = new Cliente();
     $cliente->setNmResponsavel($responsavel);
@@ -125,8 +125,8 @@ function change($id, $responsavel, $empresa, $cpfcnpj, $telefone, $email,  $ende
     require_once "../beans/TipoContato.class.php";
     require_once "../beans/Endereco.class.php";
     require_once "../controller/ClienteController.class.php";
-    require_once "../controller/FoneClineteController.class.php";
-
+    require_once "../controller/FoneClienteController.class.php";
+    //echo "Alterar";
     $cliente = new Cliente();
     $cliente->setCdCliente($id);
     $cliente->setNmResponsavel($responsavel);
@@ -141,25 +141,25 @@ function change($id, $responsavel, $empresa, $cpfcnpj, $telefone, $email,  $ende
     $cliente->setDsComplemento($complemento);
 
     $clienteController = new ClienteController();
-    $genId = $clienteController->insert($cliente);
+    $alterarBool= $clienteController->update($cliente);
     //echo "Teste: $teste";
     $arr = json_decode($telefone);
     $foneCliente = new FoneCliente();
     $foneClienteController = new FoneClienteController();
     $foneClienteController->delete($id);
     $teste = false;
-    if($genId > 0){
+
         foreach ($arr as $item  => $value){
             $foneCliente->setCliente(new Cliente());
-            $foneCliente->getCliente()->setCdCliente($genId);
+            $foneCliente->getCliente()->setCdCliente($id);
             $foneCliente->setNrTelefone($value->{'Telefone'});
             $foneCliente->setObsTelefone($value->{'Observacao'});
-            $foneCliente->setNmContato($value{'Contato'});
+            $foneCliente->setNmContato($value->{'Contato'});
             $foneCliente->setTipoContato(new TipoContato());
-            $foneCliente->getTipoContato()->setCdTipoContato($value{'#'});
+            $foneCliente->getTipoContato()->setCdTipoContato($value->{'#'});
             $teste = $foneClienteController->insert($foneCliente);
         }
-    }
+
     if($teste)
         echo json_encode(array('retorno' => 1));
     else
@@ -167,8 +167,12 @@ function change($id, $responsavel, $empresa, $cpfcnpj, $telefone, $email,  $ende
 }
 
 function delete($id){
+    require_once "../beans/FoneCliente.class.php";
+    require_once "../controller/FoneClienteController.class.php";
     require_once "../controller/ClienteController.class.php";
     $clienteController = new ClienteController();
+    $foneClienteController = new FoneClienteController();
+    $foneClienteController->delete($id);
     $teste = $clienteController->delete($id);
     //echo "Retorno: ".$teste;
     if($teste)

@@ -59,11 +59,11 @@ class ClienteDAO
         $this->connection->beginTransaction();
         try{
             $query = "UPDATE cliente SET
-                        NM_RESPONSAVEL = :responavel, DS_NM_FANTASIA = :empresa, NR_CPF_CNPJ = :cpfcnpj,  
+                        NM_RESPONSAVEL = :responsavel, DS_NM_FANTASIA = :empresa, NR_CPF_CNPJ = :cpfcnpj,  
                        DS_EMAIL = :email, CD_ENDERECO = :endereco, NR_CASA = :numero, 
                        DS_COMPLEMENTO = :complemento, DT_ATUALIZACAO = curdate()
                        WHERE CD_CLIENTE = :codigo";
-
+            //echo "Codigo: ".$cliente->getCdCliente();
             $stmt = $this->connection->prepare($query);
             $stmt->bindValue(":codigo", $cliente->getCdCliente(), PDO::PARAM_INT);
             $stmt->bindValue(":responsavel", $cliente->getNmResponsavel(), PDO::PARAM_STR);

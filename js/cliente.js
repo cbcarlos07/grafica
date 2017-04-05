@@ -73,7 +73,7 @@ function deletar(codigo, acao){
         beforeSend: carregando,
         data: {
             'id'       : codigo,
-            'acao'     : acao
+            'acao'     : 'E'
         },
         success: function( data )
         {
@@ -331,6 +331,11 @@ $('.btn-add').on('click',function () {
 
 $("#tbody").on("click", ".btn-remove", function(e){
     $(this).closest('tr').remove();
+});
+
+$('.btn-yes').on('click',function () {
+    //  alert('click');
+   location.href = "cliente.php";
 });
 
 

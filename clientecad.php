@@ -26,6 +26,22 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			<?php  include "include/supbar.php"; ?>
 			<!--notification menu end -->
 
+            <!-- Modal -->
+            <div class="modal fade" id="cancelar-modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Fechar"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="modalLabel">Cancelar Opera&ccedil;&atilde;o</h4>
+                        </div>
+                        <div class="modal-body">Deseja cancelar a opera&ccedil;&atilde;o atual? </div>
+                        <div class="modal-footer">
+                            <a href="#" type="button"  class="btn btn-primary btn-yes">Sim</a>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">N&atilde;o</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <div class="row"></div>
             <br />
@@ -131,7 +147,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     <hr />
                     <div class="btn-group">
                         <button type="submit" class="btn btn-success" onclick="salvar()">Salvar</button>
-                        <a class="btn btn-warning btn-voltar" data-url="pais.php" onclick="return verifica('Tem certeza de que deseja cancelar a opera&ccedil;&atilde;o?');">Cancelar</a>
+                        <a class="btn btn-warning " data-toggle="modal" data-target="#cancelar-modal">Cancelar</a>
                     </div>
 
                 </form>

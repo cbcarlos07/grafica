@@ -167,9 +167,10 @@ $pListIterator = new ClienteListIterator($lista);
 
                                     <td class="action">
                                         <a href="#" data-url="clientealt.php" data-id="<?php echo $cliente->getCdCliente();  ?>"  class="btn btn-danger btn-xs btn-alterar btn-acao">Alterar</a>
-                                        <a href="#" data-url="contrato.php"   data-id="<?php echo $cliente->getCdCliente(); ?>"   class="btn-acao btn btn-danger btn-xs btn-acao">Contrato</a>
+                                        <a href="#" data-id="<?php echo $cliente->getCdCliente(); ?>" data-nome="<?php echo $cliente->getNmResponsavel(); ?>"  data-toggle="modal" data-target="#delete-modal" class="delete btn btn-danger btn-xs">Excluir</a>
+                                        <a href="#" data-url="carteira.php" data-id="<?php echo $cliente->getCdCliente();  ?>" class="btn btn-danger btn-xs btn-carteira btn-acao">Filial</a>
                                         <a href="#" data-url="clienteficha.php" data-id="<?php echo $cliente->getCdCliente();  ?>" class="btn btn-danger btn-xs btn-imprimir btn-acao">Imprimir</a>
-                                        <a href="#" data-url="carteira.php" data-id="<?php echo $cliente->getCdCliente();  ?>" class="btn btn-danger btn-xs btn-carteira btn-acao">Carteira</a>
+
                                     </td>
 
                                 </tr>
