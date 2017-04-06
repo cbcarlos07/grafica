@@ -237,11 +237,13 @@ function buscarCEP() {
 }
 
 $(document).ready(function () {
-    var text_cep = document.getElementById("cep").value;
+    var text_cep = document.getElementById("endereco").value;
     var cep = text_cep.replace(".","").replace("-","");
-    if(cep != ""){
+    //alert("Cep: "+text_cep);
+    if(text_cep != ""){
         //alert('Buscar CEp');
         //Preenche os campos com "..." enquanto consulta webservice.
+        $("#cep").val("...");
         $("#logradouro").val("...");
         $("#bairro").val("...");
 
@@ -250,6 +252,7 @@ $(document).ready(function () {
 
             if (!("erro" in dados)) {
                 //Atualiza os campos com os valores da consulta.
+                $("#cep").val(text_cep.substr(0,2)+"."+text_cep.substr(2,3)+"-"+text_cep.substr(5,3));
                 $("#logradouro").val(dados.logradouro);
                 $("#bairro").val(dados.bairro);
             } //end if.

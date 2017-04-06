@@ -65,7 +65,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 <form method="post" id="form" data-toggle="validator">
                     <input id="id" value="<?php echo $id; ?>" type="hidden">
                     <input id="acao" value="A" type="hidden">
-                    <input id="endereco"  type="hidden" value="<?php echo $cliente->getEndereco()->getCdEndereco(); ?>">
+                    <input id="endereco"  type="hidden" value="<?php echo $cliente->getNrCep(); ?>">
                     <div class="form-group col-lg-12">
                         <label for="responsavel">Respons&aacute;vel</label>
                         <input id="responsavel" class="form-control" required=""

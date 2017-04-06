@@ -87,7 +87,9 @@ function add($responsavel, $empresa, $cpfcnpj, $telefone, $email,  $endereco, $n
     $novocpf = str_replace($vowels,'',$cpfcnpj);
     $cliente->setNrCpfCnpj($novocpf);
     $cliente->setDsEmail($email);
-    $cliente->setNrCep($endereco);
+    $vowels = array(".", "-");
+    $novocep= str_replace($vowels,'',$endereco);
+    $cliente->setNrCep($novocep);
     $cliente->setNrCasa($numero);
     $cliente->setDsComplemento($complemento);
 
@@ -134,7 +136,9 @@ function change($id, $responsavel, $empresa, $cpfcnpj, $telefone, $email,  $ende
     $novocpf = str_replace($vowels,'',$cpfcnpj);
     $cliente->setNrCpfCnpj($novocpf);
     $cliente->setDsEmail($email);
-    $cliente->setNrCep($endereco);
+    $vowels = array(".", "-");
+    $novocep= str_replace($vowels,'',$endereco);
+    $cliente->setNrCep($novocep);
     $cliente->setNrCasa($numero);
     $cliente->setDsComplemento($complemento);
 
@@ -157,8 +161,8 @@ function change($id, $responsavel, $empresa, $cpfcnpj, $telefone, $email,  $ende
             $foneCliente->getTipoContato()->setCdTipoContato($value->{'#'});
             $teste = $foneClienteController->insert($foneCliente);
         }
-
-    if($teste)
+   // echo "Retorno : ".$alterarBool;
+    if($alterarBool)
         echo json_encode(array('retorno' => 1));
     else
         echo json_encode(array('retorno' => 0));
