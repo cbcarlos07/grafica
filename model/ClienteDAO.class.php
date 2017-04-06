@@ -22,7 +22,7 @@ class ClienteDAO
          try{
              $query = "INSERT INTO cliente 
                        (CD_CLIENTE, NM_RESPONSAVEL, DS_NM_FANTASIA, NR_CPF_CNPJ,  
-                       DS_EMAIL, CD_ENDERECO, NR_CASA, DS_COMPLEMENTO, DT_CADASTRO)
+                       DS_EMAIL, NR_CEP, NR_CASA, DS_COMPLEMENTO, DT_CADASTRO)
                          VALUES ( 
                          NULL, :responsavel, :empresa, :cpfcnpj, :email,
                                :endereco, :numero, :complemento, curdate()
@@ -35,7 +35,7 @@ class ClienteDAO
              $stmt->bindValue(":empresa", $cliente->getDsNmFantasia(), PDO::PARAM_STR);
              $stmt->bindValue(":cpfcnpj", $cliente->getNrCpfCnpj(), PDO::PARAM_STR);
              $stmt->bindValue(":email", $cliente->getDsEmail(), PDO::PARAM_STR);
-             $stmt->bindValue(":endereco", $cliente->getEndereco()->getCdEndereco(), PDO::PARAM_INT);
+             $stmt->bindValue(":endereco", $cliente->getNrCep(), PDO::PARAM_INT);
              $stmt->bindValue(":numero", $cliente->getNrCasa(), PDO::PARAM_STR);
              $stmt->bindValue(":complemento", $cliente->getDsComplemento(), PDO::PARAM_STR);
              $stmt->execute();
@@ -60,7 +60,7 @@ class ClienteDAO
         try{
             $query = "UPDATE cliente SET
                         NM_RESPONSAVEL = :responsavel, DS_NM_FANTASIA = :empresa, NR_CPF_CNPJ = :cpfcnpj,  
-                       DS_EMAIL = :email, CD_ENDERECO = :endereco, NR_CASA = :numero, 
+                       DS_EMAIL = :email, NR_CEP = :endereco, NR_CASA = :numero, 
                        DS_COMPLEMENTO = :complemento, DT_ATUALIZACAO = curdate()
                        WHERE CD_CLIENTE = :codigo";
             //echo "Codigo: ".$cliente->getCdCliente();
@@ -70,7 +70,7 @@ class ClienteDAO
             $stmt->bindValue(":empresa", $cliente->getDsNmFantasia(), PDO::PARAM_STR);
             $stmt->bindValue(":cpfcnpj", $cliente->getNrCpfCnpj(), PDO::PARAM_STR);
             $stmt->bindValue(":email", $cliente->getDsEmail(), PDO::PARAM_STR);
-            $stmt->bindValue(":endereco", $cliente->getEndereco()->getCdEndereco(), PDO::PARAM_INT);
+            $stmt->bindValue(":endereco", $cliente->getNrCep(), PDO::PARAM_INT);
             $stmt->bindValue(":numero", $cliente->getNrCasa(), PDO::PARAM_STR);
             $stmt->bindValue(":complemento", $cliente->getDsComplemento(), PDO::PARAM_STR);
             $stmt->execute();
@@ -112,7 +112,6 @@ class ClienteDAO
         //include "include/error.php";
         require_once ("services/ClienteList.class.php");
         require_once ("beans/Cliente.class.php");
-        require_once ("beans/Endereco.class.php");
 
         $this->connection = null;
 
@@ -125,11 +124,8 @@ class ClienteDAO
         $stmt = null;
         try {
 
-                $sql = "SELECT C.*
-                              ,E.CD_ENDERECO
-                              ,E.NR_CEP                             
+                $sql = "SELECT C.*                             
                         FROM cliente C 
-                        INNER JOIN endereco     E  ON E.CD_ENDERECO = C.CD_ENDERECO
                       
                         WHERE C.NM_RESPONSAVEL LIKE :nome
                         ORDER BY C.NM_RESPONSAVEL ASC
@@ -150,9 +146,7 @@ class ClienteDAO
                 $cliente->setDsNmFantasia($row['DS_NM_FANTASIA']);
                 $cliente->setNrCpfCnpj($row['NR_CPF_CNPJ']);
                 $cliente->setDsEmail($row['DS_EMAIL']);
-                $cliente->setEndereco(new Endereco());
-                $cliente->getEndereco()->setCdEndereco($row['CD_ENDERECO']);
-                $cliente->getEndereco()->setNrCep($row['NR_CEP']);
+                $cliente->setNrCep($row['NR_CEP']);
 
                 $clienteList->addCliente($cliente);
             }
@@ -176,11 +170,8 @@ class ClienteDAO
         $stmt = null;
         try {
             if($nome == ""){
-                $sql = "SELECT C.*
-                              ,E.CD_ENDERECO
-                              ,E.NR_CEP                              
+                $sql = "SELECT C.*                             
                         FROM cliente C 
-                        INNER JOIN endereco     E  ON E.CD_ENDERECO = C.CD_ENDERECO
                         WHERE C.NM_RESPONSAVEL LIKE :nome ";
 
                 $stmt = $this->connection->prepare($sql);
@@ -195,9 +186,7 @@ class ClienteDAO
                 $cliente->setDsNmFantasia($row['DS_NM_FANTASIA']);
                 $cliente->setNrCpfCnpj($row['NR_CPF_CNPJ']);
                 $cliente->setDsEmail($row['DS_EMAIL']);
-                $cliente->setEndereco(new Endereco());
-                $cliente->getEndereco()->setCdEndereco($row['CD_ENDERECO']);
-                $cliente->getEndereco()->setNrCep($row['NR_CEP']);
+                $cliente->setNrCep($row['NR_CEP']);
                 $clienteList->addCliente($cliente);
             }
             $this->connection = null;
@@ -209,21 +198,11 @@ class ClienteDAO
 
     public function getCliente($codigo){
         require_once "beans/Cliente.class.php";
-        require_once "beans/Endereco.class.php";
-        require_once "beans/TpLogradouro.class.php";
-        require_once "beans/Bairro.class.php";
-        require_once "beans/Cidade.class.php";
-        require_once "beans/Estado.class.php";
         $cliente = null;
         $connection = null;
         $this->connection =  new ConnectionFactory();
         $sql =          "SELECT *
                         FROM cliente C 
-                        INNER JOIN endereco      E  ON E.CD_ENDERECO = C.CD_ENDERECO
-                        INNER JOIN tp_logradouro T  ON E.CD_TP_LOGRADOURO = T.CD_TP_LOGRADOURO
-                        INNER JOIN bairro        B  ON E.CD_BAIRRO = B.CD_BAIRRO
-                        INNER JOIN cidade        CI ON B.CD_CIDADE = CI.CD_CIDADE
-                        INNER JOIN estado        ES ON CI.CD_ESTADO = ES.CD_ESTADO
                         WHERE C.CD_CLIENTE = :codigo";
 
         try {
@@ -237,28 +216,15 @@ class ClienteDAO
                 $cliente->setDsNmFantasia($row['DS_NM_FANTASIA']);
                 $cliente->setNrCpfCnpj($row['NR_CPF_CNPJ']);
                 $cliente->setDsEmail($row['DS_EMAIL']);
-                $cliente->setEndereco(new Endereco());
-                $cliente->getEndereco()->setCdEndereco($row['CD_ENDERECO']);
-                $cliente->getEndereco()->setNrCep($row['NR_CEP']);
+                $cliente->setNrCep($row['NR_CEP']);
                 $cliente->setDsEmail($row['DS_EMAIL']);
 
-                $cliente->setEndereco(new Endereco());
-                $cliente->getEndereco()->setCdEndereco($row['CD_ENDERECO']);
-                $cliente->getEndereco()->setNrCep($row['NR_CEP']);
-                $cliente->getEndereco()->setDsLogradouro($row['DS_LOGRADOURO']);
+
                 $cliente->setNrCasa($row['NR_CASA']);
                 $cliente->setDsComplemento($row['DS_COMPLEMENTO']);
 
                 $cliente->setDtCadastro($row['DT_CADASTRO']);
-                $cliente->getEndereco()->setTpLogradouro(new TpLogradouro());
-                $cliente->getEndereco()->getTpLogradouro()->setDsTpLogradouro($row['DS_TP_LOGRADOURO']);
-                $cliente->getEndereco()->setBairro(new Bairro());
-                $cliente->getEndereco()->getBairro()->setNmBairro($row['NM_BAIRRO']);
-                $cliente->getEndereco()->getBairro()->setCidade(new Cidade());
-                $cliente->getEndereco()->getBairro()->getCidade()->setNmCidade($row['NM_CIDADE']);
-                $cliente->getEndereco()->getBairro()->getCidade()->setEstado(new Estado());
-                $cliente->getEndereco()->getBairro()->getCidade()->setEstado(new Estado());
-                $cliente->getEndereco()->getBairro()->getCidade()->getEstado()->setNmEstado($row['NM_ESTADO']);
+
             }
             $this->connection = null;
         } catch (PDOException $ex) {
@@ -279,11 +245,6 @@ class ClienteDAO
         $this->connection =  new ConnectionFactory();
         $sql =          "SELECT *
                         FROM cliente C 
-                        INNER JOIN endereco      E  ON E.CD_ENDERECO = C.CD_ENDERECO
-                        INNER JOIN tp_logradouro T  ON E.CD_TP_LOGRADOURO = T.CD_TP_LOGRADOURO
-                        INNER JOIN bairro        B  ON E.CD_BAIRRO = B.CD_BAIRRO
-                        INNER JOIN cidade        CI ON B.CD_CIDADE = CI.CD_CIDADE
-                        INNER JOIN estado        ES ON CI.CD_ESTADO = ES.CD_ESTADO
                         WHERE C.CD_CLIENTE = :codigo";
 
         try {
@@ -298,25 +259,10 @@ class ClienteDAO
                 $cliente->setDsNmFantasia($row['DS_NM_FANTASIA']);
                 $cliente->setNrCpfCnpj($row['NR_CPF_CNPJ']);
                 $cliente->setDsEmail($row['DS_EMAIL']);
-                $cliente->setEndereco(new Endereco());
-                $cliente->getEndereco()->setCdEndereco($row['CD_ENDERECO']);
-                $cliente->getEndereco()->setNrCep($row['NR_CEP']);
-                $cliente->setEndereco(new Endereco());
-                $cliente->getEndereco()->setCdEndereco($row['CD_ENDERECO']);
-                $cliente->getEndereco()->setNrCep($row['NR_CEP']);
-                $cliente->getEndereco()->setDsLogradouro($row['DS_LOGRADOURO']);
+                $cliente->setNrCep($row['NR_CEP']);
                 $cliente->setNrCasa($row['NR_CASA']);
                 $cliente->setDsComplemento($row['DS_COMPLEMENTO']);
                 $cliente->setDtCadastro($row['DT_CADASTRO']);
-                $cliente->getEndereco()->setTpLogradouro(new TpLogradouro());
-                $cliente->getEndereco()->getTpLogradouro()->setDsTpLogradouro($row['DS_TP_LOGRADOURO']);
-                $cliente->getEndereco()->setBairro(new Bairro());
-                $cliente->getEndereco()->getBairro()->setNmBairro($row['NM_BAIRRO']);
-                $cliente->getEndereco()->getBairro()->setCidade(new Cidade());
-                $cliente->getEndereco()->getBairro()->getCidade()->setNmCidade($row['NM_CIDADE']);
-                $cliente->getEndereco()->getBairro()->getCidade()->setEstado(new Estado());
-                $cliente->getEndereco()->getBairro()->getCidade()->setEstado(new Estado());
-                $cliente->getEndereco()->getBairro()->getCidade()->getEstado()->setNmEstado($row['NM_ESTADO']);
             }
             $this->connection = null;
         } catch (PDOException $ex) {

@@ -25,7 +25,7 @@ function salvar(){
         var empresa     = document.getElementById('empresa').value;
         var cpfcnpj     = document.getElementById('cpfcnpj').value;
         var email       = document.getElementById('email').value;
-        var endereco    = document.getElementById('endereco').value;
+        var endereco    = document.getElementById('cep').value;
         var numero      = document.getElementById('numero').value;
         var complemento = document.getElementById('complemento').value;
         var acao        = document.getElementById('acao').value;
@@ -213,82 +213,54 @@ $('.cnpj').click(function(){
 
 function buscarCEP() {
     //alert("CE OUt");
-    var cep = document.getElementById("cep").value;
+    var text_cep = document.getElementById("cep").value;
+    var cep = text_cep.replace(".","").replace("-","");
     //alert('Buscar CEp');
-    $.ajax({
-        dataType: 'json',
-        type: "POST",
-        url: "function/endereco.php",
-        data: {
-            'cep': cep,
-            'acao': 'G' //[G]et Endereco
-        },
-        success: function (data) {
-            var logradouro   = document.getElementById('logradouro');
-            var bairro       = document.getElementById('bairro');
-            var endereco     = document.getElementById('endereco');
-            var numero       = document.getElementById('numero');
-            // alert("Retorno: " + data.retorno);
-            if (data.retorno == 0) {
-                logradouro.value = "";
-                bairro.value     = "";
-                endereco.value   = 0;
-                errosend("CEP n&atilde;o localizado ou n&atilde;o est&aacute; cadastrado");
+    //Preenche os campos com "..." enquanto consulta webservice.
+    $("#logradouro").val("...");
+    $("#bairro").val("...");
 
-            } else {
-                // alert('Codigo do endereco: ' + data.logradouro);
-                var mensagem = $('.mensagem');
-                mensagem.empty().html('<p class="alert "></p>');
+    //Consulta o webservice viacep.com.br/
+    $.getJSON("//viacep.com.br/ws/"+ cep +"/json/?callback=?", function(dados) {
 
-                logradouro.value = data.logradouro;
-                bairro.value     = data.bairro;
-                endereco.value   = data.codigo;
-                numero.focus();
-
-            }
+        if (!("erro" in dados)) {
+            //Atualiza os campos com os valores da consulta.
+            $("#logradouro").val(dados.logradouro);
+            $("#bairro").val(dados.bairro);
+        } //end if.
+        else {
+            //CEP pesquisado não foi encontrado.
+            //limpa_formulário_cep();
+            errosend("CEP não encontrado.");
         }
-    })
+    });
 }
 
 $(document).ready(function () {
-    var id = document.getElementById("endereco").value;
-    if(id > 0){
-  //  alert('Buscar '+id);
-            $.ajax({
-                dataType: 'json',
-                type: "POST",
-                url: "function/endereco.php",
-                data: {
-                    'id': id,
-                    'acao': 'B' //[B]usca Endereco
-                },
-                success: function (data) {
-                    var logradouro   = document.getElementById('logradouro');
-                    var bairro       = document.getElementById('bairro');
-                    var endereco     = document.getElementById('endereco');
-                    var cep          = document.getElementById('cep');
-                    // alert("Retorno: " + data.retorno);
-                    if (data.retorno == 0) {
-                        logradouro.value = "";
-                        bairro.value     = "";
-                        endereco.value   = 0;
-                        errosend("CEP n&atilde;o localizado ou n&atilde;o est&aacute; cadastrado");
+    var text_cep = document.getElementById("cep").value;
+    var cep = text_cep.replace(".","").replace("-","");
+    if(cep != ""){
+        //alert('Buscar CEp');
+        //Preenche os campos com "..." enquanto consulta webservice.
+        $("#logradouro").val("...");
+        $("#bairro").val("...");
 
-                    } else {
-                        // alert('Codigo do endereco: ' + data.logradouro);
-                        var mensagem = $('.mensagem');
-                        mensagem.empty().html('<p class="alert "></p>');
-                        //alert('Cep: '+data.cep);
-                        logradouro.value = data.logradouro;
-                        bairro.value     = data.bairro;
-                        endereco.value   = data.codigo;
-                        cep.value        = data.cep;
-                        //numero.focus();
+        //Consulta o webservice viacep.com.br/
+        $.getJSON("//viacep.com.br/ws/"+ cep +"/json/?callback=?", function(dados) {
 
-                    }
-                }
-            })
-    } //fim do se
+            if (!("erro" in dados)) {
+                //Atualiza os campos com os valores da consulta.
+                $("#logradouro").val(dados.logradouro);
+                $("#bairro").val(dados.bairro);
+            } //end if.
+            else {
+                //CEP pesquisado não foi encontrado.
+                //limpa_formulário_cep();
+                errosend("CEP não encontrado.");
+            }
+        });
+    }
+
 });
 
 $('#cpf').focusout(function(){

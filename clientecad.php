@@ -120,12 +120,13 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                         <div class="panel-body">
                             <div class="form-group col-lg-2">
                                 <label for="cep">CEP</label>
-                                <input id="cep" class="form-control" placeholder="00.000-000" onblur="buscarCEP()" />
+                                <input id="cep" class="form-control" placeholder="00.000-000"
+                                       onblur="buscarCEP()" required=""/>
                             </div>
                             <div class="row"></div>
                             <div class="form-group col-lg-6">
                                 <label for="logradouro">Logradouro</label>
-                                <input id="logradouro" class="form-control" disabled="" />
+                                <input id="logradouro" class="form-control" disabled="" required="" />
                             </div>
                             <div class="form-group col-lg-4">
                                 <label for="bairro">Bairro</label>

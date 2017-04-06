@@ -13,7 +13,7 @@ private $nmResponsavel;
 private $dsNmFantasia;
 private $nrCpfCnpj;
 private $dsEmail;
-private $endereco;
+private $nrCep;
 private $nrCasa;
 private $dsComplemento;
 private $dtCadastro;
@@ -111,20 +111,22 @@ private $dtCadastro;
     /**
      * @return mixed
      */
-    public function getEndereco()
+    public function getNrCep()
     {
-        return $this->endereco;
+        return $this->nrCep;
     }
 
     /**
-     * @param mixed $endereco
+     * @param mixed $nrCep
      * @return Cliente
      */
-    public function setEndereco($endereco)
+    public function setNrCep($nrCep)
     {
-        $this->endereco = $endereco;
+        $this->nrCep = $nrCep;
         return $this;
     }
+
+
 
     /**
      * @return mixed

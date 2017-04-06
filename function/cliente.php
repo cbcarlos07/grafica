@@ -87,8 +87,7 @@ function add($responsavel, $empresa, $cpfcnpj, $telefone, $email,  $endereco, $n
     $novocpf = str_replace($vowels,'',$cpfcnpj);
     $cliente->setNrCpfCnpj($novocpf);
     $cliente->setDsEmail($email);
-    $cliente->setEndereco(new Endereco());
-    $cliente->getEndereco()->setCdEndereco($endereco);
+    $cliente->setNrCep($endereco);
     $cliente->setNrCasa($numero);
     $cliente->setDsComplemento($complemento);
 
@@ -135,8 +134,7 @@ function change($id, $responsavel, $empresa, $cpfcnpj, $telefone, $email,  $ende
     $novocpf = str_replace($vowels,'',$cpfcnpj);
     $cliente->setNrCpfCnpj($novocpf);
     $cliente->setDsEmail($email);
-    $cliente->setEndereco(new Endereco());
-    $cliente->getEndereco()->setCdEndereco($endereco);
+    $cliente->setNrCep($endereco);
     $cliente->setNrCasa($numero);
     $cliente->setDsComplemento($complemento);
 
