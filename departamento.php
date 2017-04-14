@@ -7,7 +7,21 @@ License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 -->
 <?php
-////include "include/error.php";
+include "include/error.php";
+
+if(isset($_POST['id'])){
+    $_id = $_POST['id'];
+    $_SESSION['filial'] = $_id;
+}else{
+    $_id = $_SESSION['filial'];
+}
+
+if(isset($_POST['cliente'])){
+    $_cliente = $_POST['cliente'];
+    $_SESSION['cliente'] = $_cliente;
+}else{
+    $_cliente = $_SESSION['cliente'];
+}
 $descricao = "";
 
 
@@ -20,13 +34,17 @@ $pagina = (isset($_POST['pagina'])) ? $_POST['pagina'] : 1;
 
 
 
-include_once "controller/ClienteController.class.php";
-include_once "beans/Cliente.class.php";
-include_once "services/ClienteListIterator.class.php";
+include_once "controller/DepartamentoController.class.php";
+include_once "controller/FilialController.class.php";
+include_once "beans/Departamento.class.php";
+include_once "beans/Filial.class.php";
+include_once "services/DepartamentoListIterator.class.php";
 
 
-$clienteController = new ClienteController();
-$total = $clienteController->getTotalCliente();
+$filialController = new FilialController();
+$filial =  $filialController->getFilial($_id);
+$departamentoController = new DepartamentoController();
+$total = $departamentoController->getTotalDepartamento($_id);
 
 //seta a quantidade de itens por página, neste caso, 2 itens
 $registros = 10;
@@ -39,8 +57,8 @@ $numPaginas = ceil($total/$registros);
 //variavel para calcular o início da visualização com base na página atual
 $inicio = ($registros*$pagina)-$registros;
 
-$lista = $clienteController->getList($descricao, $inicio, $registros);
-$pListIterator = new ClienteListIterator($lista);
+$lista = $departamentoController->getList($_id, $descricao,$inicio, $registros);
+$pListIterator = new DepartamentoListIterator($lista);
 
 
 
@@ -84,40 +102,29 @@ $pListIterator = new ClienteListIterator($lista);
 
             <br>
 
-            <div class="col-lg-1" ><h2>Cliente</h2></div>
+            <div class="col-lg-3" ><h3><a href="#div" data-url="filial.php" data-id="<?php echo $_cliente; ?>" class="btn-voltar">Departamentos</a> de <b><?php echo $filial->getDsNmFantasia(); ?></b> </h3></div>
             <div class="col-lg-7" >
-
-                <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" id="form-pesquisa">
-                    <input type="hidden" name="acao" value="P">
-                    <div class="input-group h2">
-                        <input  name="search"  id="search" class="form-control">
-                        <span class="input-group-btn">
-                                <button class="btn btn-primary" type="submit" >
-                                    <span class="glyphicon glyphicon-search"></span>
-                                </button>
-                          </span>
-                    </div>
-                </form>
+                <div style="margin-left: -150px;">
+                    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" id="form-pesquisa">
+                        <input type="hidden" name="acao" value="P">
+                        <div class="input-group h2">
+                            <input  name="search"  id="search" class="form-control">
+                            <span class="input-group-btn">
+                                    <button class="btn btn-primary" type="submit" >
+                                        <span class="glyphicon glyphicon-search"></span>
+                                    </button>
+                              </span>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <div class="col-lg-4">
-                <a href="#" data-url="clientecad.php" class="btn btn-primary novo-item">Novo Item</a>
+            <div class="col-lg-2">
+                <a href="#" data-url="departamentocad.php" data-cliente="<?php echo $_cliente; ?>" data-id="<?php echo $_id; ?>" class="btn btn-primary novo-item">Novo Item</a>
             </div>
             <div class="row"></div>
             <hr />
             <div class="mensagem alert "></div>
-            <!--
-            <div class="col-lg-5 form-group">
 
-              <label for="registro">Registros</label>
-                <select class="form-control registros" id="registro">
-                    <option value="10" <?php $registros == 10 ? $select = "selected" : $select = ''; echo $select; ?> >10</option>
-                    <option value="15" <?php $registros == 15 ? $select = "selected" : $select = ''; echo $select; ?>>15</option>
-                    <option value="20" <?php $registros == 20 ? $select = "selected" : $select = ''; echo $select; ?>>20</option>
-                    <option value="25" <?php $registros == 25 ? $select = "selected" : $select = ''; echo $select; ?>>25</option>
-                    <option value="30" <?php $registros == 30 ? $select = "selected" : $select = ''; echo $select; ?>>30</option>
-                </select>
-            </div>
-            -->
             <script src="js/tooltip.js"></script>
             <div id="page-wrapper" class="tabela">
             <div class="graphs">
@@ -127,54 +134,35 @@ $pListIterator = new ClienteListIterator($lista);
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Empresa</th>
+                                <th>Departamento</th>
                                 <th>Respons&aacute;vel</th>
-                                <th>CPF/CNPJ</th>
                                 <th></th>
                             </tr>
                             </thead>
                             <tbody>
                             <?php
-                            $cliente = new Cliente();
-                            while ($pListIterator->hasNextCliente()){
-                                $cliente =  $pListIterator->getNextCliente();
+                            $departamento = new Departamento();
+                            while ($pListIterator->hasNextDepartamento()){
+                                $departamento =  $pListIterator->getNextDepartamento();
 
                                 ?>
                                 <tr>
-                                    <th scope="row"><?php echo $cliente->getCdCliente(); ?></th>
-                                    <td><?php echo $cliente->getNmResponsavel(); ?></td>
-                                    <td><?php echo $cliente->getDsNmFantasia(); ?></td>
-                                    <td><?php
-                                        $cpfcnpj = "";
-                                        if(strlen($cliente->getNrCpfCnpj()) == 11 ) {
-                                            $cpf1 = substr($cliente->getNrCpfCnpj(), 0, 3);
-                                            $cpf2 = substr($cliente->getNrCpfCnpj(), 3, 3);
-                                            $cpf3 = substr($cliente->getNrCpfCnpj(), 6, 3);
-                                            $cpf4 = substr($cliente->getNrCpfCnpj(), 9, 2);
-                                            $cpfcnpj = "$cpf1.$cpf2.$cpf3-$cpf4";
-                                        }else{
-                                            //00.000.000/0000-00
-                                            $cpf1 = substr($cliente->getNrCpfCnpj(), 0, 2);
-                                            $cpf2 = substr($cliente->getNrCpfCnpj(), 2, 3);
-                                            $cpf3 = substr($cliente->getNrCpfCnpj(), 5, 3);
-                                            $cpf4 = substr($cliente->getNrCpfCnpj(), 8, 4);
-                                            $cpf5 = substr($cliente->getNrCpfCnpj(), 10, 2);
-                                            $cpfcnpj = "$cpf1.$cpf2.$cpf3/$cpf4-$cpf5";
-                                        }
-                                        echo $cpfcnpj;
-                                        ?></td>
+                                    <th scope="row"><?php echo $departamento->getCdDepartamento(); ?></th>
+                                    <td><?php echo $departamento->getDsDepartamento(); ?></td>
+                                    <td><?php echo $departamento->getNmResponsavel(); ?></td>
+
 
 
                                     <td class="action">
-                                        <a href="#" data-url="clientealt.php" data-id="<?php echo $cliente->getCdCliente();  ?>"  class="btn btn-danger btn-xs btn-alterar btn-acao">Alterar</a>
-                                        <a href="#" data-id="<?php echo $cliente->getCdCliente(); ?>" data-nome="<?php echo $cliente->getNmResponsavel(); ?>"  data-toggle="modal" data-target="#delete-modal" class="delete btn btn-danger btn-xs">Excluir</a>
-                                        <a href="#" data-url="filial.php" data-id="<?php echo $cliente->getCdCliente();  ?>" class="btn btn-danger btn-xs btn-carteira btn-acao">Filial</a>
-                                        <a href="#" data-url="clienteficha.php" data-id="<?php echo $cliente->getCdCliente();  ?>" class="btn btn-danger btn-xs btn-imprimir btn-acao">Imprimir</a>
+                                        <a href="#" data-url="departamentoalt.php" data-cliente="<?php echo $_cliente; ?>"  data-id="<?php echo $departamento->getCdDepartamento();  ?>"  class="btn btn-danger btn-xs btn-alterar btn-acao">Alterar</a>
+                                        <a href="#" data-id="<?php echo $departamento->getCdDepartamento(); ?>" data-nome="<?php echo $departamento->getNmResponsavel(); ?>"  data-toggle="modal" data-target="#delete-modal" class="delete btn btn-danger btn-xs">Excluir</a>
+                                       <!-- <a href="#" data-url="departamento.php" data-id="<?php echo $departamento->getCdDepartamento();  ?>" class="btn btn-danger btn-xs btn-carteira btn-acao">Departamento</a> -->
+                                        <a href="#" data-url="departamentoficha.php" data-id="<?php echo $departamento->getCdDepartamento();  ?>" class="btn btn-danger btn-xs btn-imprimir btn-acao">Imprimir</a>
 
                                     </td>
 
                                 </tr>
-                                <?php // echo 'R$ '.number_format($cliente->getNrValor(),2,',','.'); ?>
+                                <?php // echo 'R$ '.number_format($filial->getNrValor(),2,',','.'); ?>
                             <?php } ?>
                             </tbody>
                         </table>
@@ -280,14 +268,14 @@ $pListIterator = new ClienteListIterator($lista);
 
             $('.registros').on('change', function () {
                 var registro = document.getElementById('registro').value;
-                var form     = $('<form method="post" action="cliente.php">'+
+                var form     = $('<form method="post" action="filial.php">'+
                     '<input type="hidden" name="registros" value="'+registro+'">'+
                     '</form>');
                 $('body').append(form);
                 form.submit();
             });
         </script>
-        <script src="js/cliente.js"></script>
+        <script src="js/departamento.js"></script>
     </section>
 
  </body>
