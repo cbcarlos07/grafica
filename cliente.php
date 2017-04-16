@@ -127,8 +127,8 @@ $pListIterator = new ClienteListIterator($lista);
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Empresa</th>
-                                <th>Respons&aacute;vel</th>
+                                <th>Fantasia</th>
+                                <th>Raz&atilde;o Social</th>
                                 <th>CPF/CNPJ</th>
                                 <th></th>
                             </tr>
@@ -158,7 +158,7 @@ $pListIterator = new ClienteListIterator($lista);
                                             $cpf2 = substr($cliente->getNrCpfCnpj(), 2, 3);
                                             $cpf3 = substr($cliente->getNrCpfCnpj(), 5, 3);
                                             $cpf4 = substr($cliente->getNrCpfCnpj(), 8, 4);
-                                            $cpf5 = substr($cliente->getNrCpfCnpj(), 10, 2);
+                                            $cpf5 = substr($cliente->getNrCpfCnpj(), 12, 2);
                                             $cpfcnpj = "$cpf1.$cpf2.$cpf3/$cpf4-$cpf5";
                                         }
                                         echo $cpfcnpj;

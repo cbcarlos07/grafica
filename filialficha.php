@@ -1,11 +1,4 @@
-            <?php
-            session_start();
-            include "include/error.php";
-
-
-            /*if($_SESSION['login'] == ""){
-               echo "<script>location.href='./';</script>";
-            }*/
+<?php
             $codigo = $_POST['id'];
             //echo "<link rel='shortcut icon' href='img/ham.png'>";
             // PRIMEIRAMENTE: INSTALEI A CLASSE NA PASTA FPDF DENTRO DE MEU SITE.
@@ -106,14 +99,14 @@
 
 
             $pdf->SetY(35);
-            $pdf->SetX(30);
+            $pdf->SetX(28);
             //$pdf->Rect(10,$y,25,$l);
-            $pdf->MultiCell(40,6,'CLIENTE',0,'L',false); // ESTA É A CELULA QUE PODE TER DADOS EM MAIS DE UMA LINHA
+            $pdf->MultiCell(40,6,'FANTASIA',0,'L',false); // ESTA É A CELULA QUE PODE TER DADOS EM MAIS DE UMA LINHA
 
             $pdf->SetY(40);
-            $pdf->SetX(19);
+            $pdf->SetX(18);
             //$pdf->Rect(10,$y,25,$l);
-            $pdf->MultiCell(40,6,'RESPONSAVEL',0,'L',false); // ESTA É A CELULA QUE PODE TER DADOS EM MAIS DE UMA LINHA
+            $pdf->MultiCell(40,6,'RAZAO SOCIAL',0,'L',false); // ESTA É A CELULA QUE PODE TER DADOS EM MAIS DE UMA LINHA
 
 
 
@@ -151,14 +144,14 @@
             $pdf->SetX(48);
             //$pdf->Rect(30,$y,80,$l);
             $nome = utf8_decode($filial->getDsNmFantasia());
-            $pdf->MultiCell(100,5,$nome,0,'L'); //NOME
+            $pdf->MultiCell(200,5,$nome,0,'L'); //NOME
 
 
             $pdf->SetY(40);
             $pdf->SetX(48);
             //$pdf->Rect(30,$y,80,$l);
             $nome = utf8_decode($filial->getNmResponsavel());
-            $pdf->MultiCell(100,5,$nome,0,'L'); //NOME
+            $pdf->MultiCell(200,5,$nome,0,'L'); //NOME
 
 
 
@@ -168,7 +161,7 @@
 
 
             $pdf->SetY(45.5);
-            $pdf->SetX(44);
+            $pdf->SetX(48);
             //$pdf->Rect(129,$y,70,$l);
             $cpfcnpj = "";
             if(strlen($filial->getNrCpfCnpj()) == 11 ) {
@@ -183,7 +176,7 @@
                 $cpf2 = substr($filial->getNrCpfCnpj(), 2, 3);
                 $cpf3 = substr($filial->getNrCpfCnpj(), 5, 3);
                 $cpf4 = substr($filial->getNrCpfCnpj(), 8, 4);
-                $cpf5 = substr($filial->getNrCpfCnpj(), 10, 2);
+                $cpf5 = substr($filial->getNrCpfCnpj(), 12, 2);
                 $cpfcnpj = "$cpf1.$cpf2.$cpf3/$cpf4-$cpf5";
             }
             //echo $cpf = "$cpf1.$cpf2.$cpf3-$cpf4";
@@ -250,7 +243,7 @@
 
             $pdf->SetY(65.5);
             $pdf->SetX(45);
-            $rua = getEndereco($filial->getNrCep(),'logradouro');
+            $rua = utf8_decode(getEndereco($filial->getNrCep(),'logradouro'));
             //multiceu(tamanho, altura, string, borda, alinhamento, preenchimento (true or false)  )
             $pdf->MultiCell(120,5,$rua,0,'L',false); //NASCIMENTO
 
@@ -266,7 +259,7 @@
 
             $pdf->SetY(75);
             $pdf->SetX(45);
-            $bairro = getEndereco($filial->getNrCep(),'bairro');
+            $bairro = utf8_decode(getEndereco($filial->getNrCep(),'bairro'));
             //multiceu(tamanho, altura, string, borda, alinhamento, preenchimento (true or false)  )
             $pdf->MultiCell(120,5,$bairro,0,'L',false); //NASCIMENTO
 

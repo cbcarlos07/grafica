@@ -67,14 +67,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     <input id="acao" value="A" type="hidden">
                     <input id="endereco"  type="hidden" value="<?php echo $cliente->getNrCep(); ?>">
                     <div class="form-group col-lg-12">
-                        <label for="responsavel">Respons&aacute;vel</label>
+                        <label for="responsavel">Fantasia</label>
                         <input id="responsavel" class="form-control" required=""
-                               autofocus placeholder="Nome do Repons&aacute;vel" value="<?php echo $cliente->getNmResponsavel(); ?>"/>
+                               autofocus placeholder="Nome Fantasia" value="<?php echo $cliente->getNmResponsavel(); ?>"/>
                     </div>
                     <div class="row"></div>
                     <div class="form-group col-lg-12">
-                        <label for="empresa">Empresa</label>
-                        <input id="empresa" class="form-control" required="" placeholder="Nome Fantasia da Empresa"
+                        <label for="empresa">Raz&atilde;o Social</label>
+                        <input id="empresa" class="form-control" required="" placeholder="Raz&atilde;o Social"
                         value="<?php echo $cliente->getDsNmFantasia(); ?>"/>
                     </div>
                     <div class="row"></div>

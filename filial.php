@@ -127,8 +127,8 @@ $pListIterator = new FilialListIterator($lista);
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Empresa</th>
-                                <th>Respons&aacute;vel</th>
+                                <th>Fantasia</th>
+                                <th>Raz&atilde;o Social</th>
                                 <th>CPF/CNPJ</th>
                                 <th></th>
                             </tr>

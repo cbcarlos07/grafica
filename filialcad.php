@@ -60,13 +60,13 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     <input id="endereco" value="" type="hidden"/>
                     <input id="cliente"  type="hidden" value="<?php echo $_cliente; ?>">
                     <div class="form-group col-lg-12">
-                        <label for="responsavel">Respons&aacute;vel</label>
-                        <input id="responsavel" class="form-control" required="" autofocus placeholder="Nome do Repons&aacute;vel"/>
+                        <label for="responsavel">Fantasia</label>
+                        <input id="responsavel" class="form-control" required="" autofocus placeholder="Nome Fantasia"/>
                     </div>
                     <div class="row"></div>
                     <div class="form-group col-lg-12">
-                        <label for="empresa">Empresa</label>
-                        <input id="empresa" class="form-control" required="" placeholder="Nome Fantasia da Empresa"/>
+                        <label for="empresa">Raz&atilde;o Social</label>
+                        <input id="empresa" class="form-control" required="" placeholder="Raz&atilde;o Social"/>
                     </div>
                     <div class="row"></div>
                     <div class="form-group col-lg-4">
