@@ -69,9 +69,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     <div class="form-group col-lg-4">
                         <label for="cpfcnpj">CPF</label>
                         <input id="cpfcnpj" class="form-control" required="" placeholder="00.000.000/0000-00"/>
-                        <span><label><input name="doc" type="radio" class="cpf" > CPF</label>
+                        <span><label><input name="doc" type="radio"  id="checkcpf" class="cpf" > CPF</label>
                             &nbsp;&nbsp;&nbsp;
-                            <label><input name="doc" type="radio" class="cnpj" checked> CNPJ</label>
+                            <label><input name="doc" type="radio" id="checkcnpj" class="cnpj" checked> CNPJ</label>
                         </span>
                     </div>
                     <div class="form-group col-lg-4">

@@ -192,12 +192,26 @@ $('.btn-refresh').on('click', function () {
 
 
 
+var documento = $('#cpfcnpj');
 
 $(document).ready(function () {
-    $('#cpfcnpj').mask('00.000.000/0000-00');
+    //$('#cpfcnpj').mask('000.000.000-00');
+    var cpfcheck = document.getElementById('checkcpf');
+    var cnpjcheck = document.getElementById('checkcnpj');
+    if(cpfcheck.checked === true ){
+         //alert('Cpf');
+        documento.mask('000.000.000-00')
+        documento.attr("placeholder","00.000.000-00");
+    }else if(cnpjcheck.checked === true){
+        //.mask('000.000.000-00')
+        //alert('CNPJ');
+        documento.mask('00.000.000/0000-00');
+        documento.attr("placeholder","00.000.000/0000-00");
+    }
 });
 
-var documento = $('#cpfcnpj');
+
+
 $('.cpf').click(function(){
     documento.mask('000.000.000-00');
     documento.attr("placeholder","000.000.000-00");

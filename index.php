@@ -122,7 +122,7 @@ if(isset($_COOKIE['login'])){
 			</div>
 		<!--footer section start-->
 			<footer>
-			   <p>&copy 2017 Sistema de Gerenciamento de Gráfico. All Rights Reserved
+			   <p>&copy 2017 Sistema de Gerenciamento de Gr&aacute;fica - SGG. All Rights Reserved
 			</footer>
         <!--footer section end-->
 	</section>
