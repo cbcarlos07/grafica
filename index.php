@@ -30,7 +30,7 @@ if(isset($_COOKIE['login'])){
 <link href="css/style.css" rel='stylesheet' type='text/css' />
 <!-- Graph CSS -->
 <link href="css/font-awesome.css" rel="stylesheet">
-<link rel="short icon" href="images/logo.jpg">
+<!--<link rel="short icon" href="images/logo.jpg">-->
 <!-- jQuery -->
 <!-- lined-icons -->
 <link rel="stylesheet" href="css/icon-font.min.css" type='text/css' />

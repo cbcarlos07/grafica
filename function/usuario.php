@@ -240,7 +240,7 @@ function login($login, $senha, $lembrar){
 
 function sair(){
     session_start();
-    echo "Sair";
+   // echo "Sair";
     unset($_SESSION['login']);
     session_destroy();
     //$_SESSION['login'] = "";
