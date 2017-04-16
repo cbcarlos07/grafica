@@ -89,7 +89,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                             $cnpj = "checked";
                         }
                         ?>
-                        <input id="cpfcnpj" class="form-control" required="" placeholder="000.000.000-00"
+                        <input id="cpfcnpj" class="form-control" required="" placeholder="00.000.000/0000-00"
                         value="<?php echo $cliente->getNrCpfCnpj(); ?>"/>
                         <span><label><input name="doc" type="radio" <?php echo $cpf; ?> class="cpf" > CPF</label>
                             &nbsp;&nbsp;&nbsp;

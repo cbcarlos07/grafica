@@ -76,7 +76,6 @@ function add($responsavel, $empresa, $cpfcnpj, $telefone, $email,  $endereco, $n
     require_once "../beans/Cliente.class.php";
     require_once "../beans/FoneCliente.class.php";
     require_once "../beans/TipoContato.class.php";
-    require_once "../beans/Endereco.class.php";
     require_once "../controller/ClienteController.class.php";
     require_once "../controller/FoneClienteController.class.php";
 
@@ -124,7 +123,6 @@ function change($id, $responsavel, $empresa, $cpfcnpj, $telefone, $email,  $ende
     require_once "../beans/Cliente.class.php";
     require_once "../beans/FoneCliente.class.php";
     require_once "../beans/TipoContato.class.php";
-    require_once "../beans/Endereco.class.php";
     require_once "../controller/ClienteController.class.php";
     require_once "../controller/FoneClienteController.class.php";
     //echo "Alterar";

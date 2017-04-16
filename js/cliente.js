@@ -194,7 +194,7 @@ $('.btn-refresh').on('click', function () {
 
 
 $(document).ready(function () {
-    $('#cpfcnpj').mask('000.000.000-00');
+    $('#cpfcnpj').mask('00.000.000/0000-00');
 });
 
 var documento = $('#cpfcnpj');
