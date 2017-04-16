@@ -80,12 +80,12 @@
             //CONECTE SE AO BANCO DE DADOS SE PRECISAR
             //include("config.php"); // A MINHA CONEXÃO FICOU EM CONFIG.PHP
 
-            include_once 'controller/ClienteController.class.php';
-            include_once 'services/ClienteListIterator.class.php';;
-            include_once 'beans/Cliente.class.php';
-            $cc = new ClienteController();
-            $cliente = new Cliente();
-            $cliente = $cc->getCliente($codigo);
+            include_once 'controller/FilialController.class.php';
+            include_once 'services/FilialListIterator.class.php';;
+            include_once 'beans/Filial.class.php';
+            $fc = new FilialController();
+            $filial = new Filial();
+            $filial = $fc->getFilial($codigo);
 
 
 
@@ -128,11 +128,6 @@
             //$pdf->Rect(10,$y,25,$l);
             $pdf->MultiCell(40,6,'E-MAIL',0,'L',false); // ESTA É A CELULA QUE PODE TER DADOS EM MAIS DE UMA LINHA
 
-            $pdf->SetY(50);
-            $pdf->SetX(8);
-            //$pdf->Rect(10,$y,25,$l);
-            $pdf->MultiCell(40,6,'DATA DO CADASTRO',0,'L',false); // ESTA É A CELULA QUE PODE TER DADOS EM MAIS DE UMA LINHA
-
             $pdf->SetFont('Arial','B',13);
 
             $pdf->SetY(54);
@@ -149,20 +144,20 @@
             $pdf->SetY(30);
             $pdf->SetX(40);
             //    $pdf->Rect(10,$y,20,$l);
-            $pdf->MultiCell(20,6,$cliente->getCdCliente(),0,'C',false); // ESTA É A CELULA QUE PODE TER DADOS EM MAIS DE UMA LINHA
+            $pdf->MultiCell(20,6,$filial->getCdFilial(),0,'C',false); // ESTA É A CELULA QUE PODE TER DADOS EM MAIS DE UMA LINHA
 
 
             $pdf->SetY(35);
             $pdf->SetX(48);
             //$pdf->Rect(30,$y,80,$l);
-            $nome = utf8_decode($cliente->getDsNmFantasia());
+            $nome = utf8_decode($filial->getDsNmFantasia());
             $pdf->MultiCell(100,5,$nome,0,'L'); //NOME
 
 
             $pdf->SetY(40);
             $pdf->SetX(48);
             //$pdf->Rect(30,$y,80,$l);
-            $nome = utf8_decode($cliente->getNmResponsavel());
+            $nome = utf8_decode($filial->getNmResponsavel());
             $pdf->MultiCell(100,5,$nome,0,'L'); //NOME
 
 
@@ -176,19 +171,19 @@
             $pdf->SetX(44);
             //$pdf->Rect(129,$y,70,$l);
             $cpfcnpj = "";
-            if(strlen($cliente->getNrCpfCnpj()) == 11 ) {
-                $cpf1 = substr($cliente->getNrCpfCnpj(), 0, 3);
-                $cpf2 = substr($cliente->getNrCpfCnpj(), 3, 3);
-                $cpf3 = substr($cliente->getNrCpfCnpj(), 6, 3);
-                $cpf4 = substr($cliente->getNrCpfCnpj(), 9, 2);
+            if(strlen($filial->getNrCpfCnpj()) == 11 ) {
+                $cpf1 = substr($filial->getNrCpfCnpj(), 0, 3);
+                $cpf2 = substr($filial->getNrCpfCnpj(), 3, 3);
+                $cpf3 = substr($filial->getNrCpfCnpj(), 6, 3);
+                $cpf4 = substr($filial->getNrCpfCnpj(), 9, 2);
                 $cpfcnpj = "$cpf1.$cpf2.$cpf3-$cpf4";
             }else{
                 //00.000.000/0000-00
-                $cpf1 = substr($cliente->getNrCpfCnpj(), 0, 2);
-                $cpf2 = substr($cliente->getNrCpfCnpj(), 2, 3);
-                $cpf3 = substr($cliente->getNrCpfCnpj(), 5, 3);
-                $cpf4 = substr($cliente->getNrCpfCnpj(), 8, 4);
-                $cpf5 = substr($cliente->getNrCpfCnpj(), 10, 2);
+                $cpf1 = substr($filial->getNrCpfCnpj(), 0, 2);
+                $cpf2 = substr($filial->getNrCpfCnpj(), 2, 3);
+                $cpf3 = substr($filial->getNrCpfCnpj(), 5, 3);
+                $cpf4 = substr($filial->getNrCpfCnpj(), 8, 4);
+                $cpf5 = substr($filial->getNrCpfCnpj(), 10, 2);
                 $cpfcnpj = "$cpf1.$cpf2.$cpf3/$cpf4-$cpf5";
             }
             //echo $cpf = "$cpf1.$cpf2.$cpf3-$cpf4";
@@ -198,13 +193,8 @@
             $pdf->SetY(40);
             $pdf->SetX(138);
             //$pdf->Rect(129,$y,70,$l)
-            $pdf->MultiCell(50,5,$cliente->getDsEmail(),0,'LS',false); //Email
+            $pdf->MultiCell(50,5,$filial->getDsEmail(),0,'LS',false); //Email
 
-
-            $pdf->SetY(50.5);
-            $pdf->SetX(40.5);
-            $dataMySQL = explode('-', $cliente->getDtCadastro());
-            $pdf->MultiCell(35,5,"$dataMySQL[2]/$dataMySQL[1]/$dataMySQL[0]",0,'C',false); //NASCIMENTO
 
             $pdf->SetXY(10,50);
             $pdf->Cell(0,10,'','B',1,'C'); //LINHA VERTICAL //ENDERECO
@@ -252,43 +242,43 @@
             $pdf->SetFont('Arial','',10);
             $pdf->SetY(60.5);
             $pdf->SetX(38);
-            $cep1 = substr($cliente->getNrCep(),0,2);
-            $cep2 = substr($cliente->getNrCep(),2,3);
-            $cep3 = substr($cliente->getNrCep(),5,7);
+            $cep1 = substr($filial->getNrCep(),0,2);
+            $cep2 = substr($filial->getNrCep(),2,3);
+            $cep3 = substr($filial->getNrCep(),5,7);
 
             $pdf->MultiCell(35,5,"$cep1.$cep2-$cep3",0,'C',false); //CEP
 
             $pdf->SetY(65.5);
             $pdf->SetX(45);
-            $rua = getEndereco($cliente->getNrCep(),'logradouro');
+            $rua = getEndereco($filial->getNrCep(),'logradouro');
             //multiceu(tamanho, altura, string, borda, alinhamento, preenchimento (true or false)  )
             $pdf->MultiCell(120,5,$rua,0,'L',false); //NASCIMENTO
 
             $pdf->SetY(65.5);
             $pdf->SetX(167);
             //multiceu(tamanho, altura, string, borda, alinhamento, preenchimento (true or false)  )
-            $pdf->MultiCell(35,5,$cliente->getNrCasa(),0,'L',false); //
+            $pdf->MultiCell(35,5,$filial->getNrCasa(),0,'L',false); //
 
             $pdf->SetY(70.5);
             $pdf->SetX(45);
             //multiceu(tamanho, altura, string, borda, alinhamento, preenchimento (true or false)  )
-            $pdf->MultiCell(35,5,$cliente->getDsComplemento(),0,'L',false); //NASCIMENTO
+            $pdf->MultiCell(35,5,$filial->getDsComplemento(),0,'L',false); //NASCIMENTO
 
             $pdf->SetY(75);
             $pdf->SetX(45);
-            $bairro = getEndereco($cliente->getNrCep(),'bairro');
+            $bairro = getEndereco($filial->getNrCep(),'bairro');
             //multiceu(tamanho, altura, string, borda, alinhamento, preenchimento (true or false)  )
             $pdf->MultiCell(120,5,$bairro,0,'L',false); //NASCIMENTO
 
             $pdf->SetY(75.5);
             $pdf->SetX(105);
-            $cidade = getEndereco($cliente->getNrCep(),'localidade');
+            $cidade = getEndereco($filial->getNrCep(),'localidade');
             //multiceu(tamanho, altura, string, borda, alinhamento, preenchimento (true or false)  )
             $pdf->MultiCell(120,5,$cidade,0,'L',false); //NASCIMENTO000
 
             $pdf->SetY(75.5);
             $pdf->SetX(167);
-            $estado = getEndereco($cliente->getNrCep(),'uf');
+            $estado = getEndereco($filial->getNrCep(),'uf');
             //multiceu(tamanho, altura, string, borda, alinhamento, preenchimento (true or false)  )
             $pdf->MultiCell(120,5,$estado,0,'L',false); //NASCIMENTO000
 

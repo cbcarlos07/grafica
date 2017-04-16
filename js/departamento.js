@@ -154,10 +154,10 @@ $('.btn-alterar').on('click', function(){
 $('.btn-acao').on('click', function(){
     var url = $(this).data('url'); // vamos buscar o valor do atributo data-name que temos no botão que foi clicado
     var id = $(this).data('id');
-    var cliente = $(this).data('cliente');
+    var filial = $(this).data('filial');
     var form = $('<form action="'+url+'" method="post">' +
         '<input type="hidden" value="'+id+'" name="id">'+
-        '<input type="hidden" value="'+cliente+'" name="cliente">'+
+        '<input type="hidden" value="'+filial+'" name="filial">'+
         '</form>');
     $('body').append(form);
     form.submit();
@@ -226,7 +226,7 @@ $('.btn-yes').on('click',function () {
     //  alert('click');
     var id = $(this).data('id');
    //location.href = "filial.php";
-    var form =  $('<form action="filial.php" method="post">'+
+    var form =  $('<form action="departamento.php" method="post">'+
         '<input type="hidden" value="'+id+'" name="id"> '+
         '</form>');
     $('body').append(form);

@@ -1,7 +1,7 @@
 <?php include "include/head.php";
 include "include/error.php";
 $_id = $_POST['id'];
-$_cliente = $_POST['cliente'];
+$_filial = $_POST['filial'];
 
 
 include "beans/Departamento.class.php";
@@ -47,7 +47,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                         </div>
                         <div class="modal-body">Deseja cancelar a opera&ccedil;&atilde;o atual? </div>
                         <div class="modal-footer">
-                            <a href="#" type="button"  data-id="<?php echo $_cliente; ?>" class="btn btn-primary btn-yes">Sim</a>
+                            <a href="#" type="button"  data-id="<?php echo $_filial; ?>" class="btn btn-primary btn-yes">Sim</a>
                             <button type="button" class="btn btn-default" data-dismiss="modal">N&atilde;o</button>
                         </div>
                     </div>
@@ -108,7 +108,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                         <label for="tipo">Tipo Telefone</label>
                         <select id="tipo" class="form-control"></select>
                     </div>
-                    <div class="col-lg-1 form-group" style="margin-top: 30px;">
+                    <div class="col-lg-1 form-group" >
                         <label></label>
                         <a href="#div" title="Clique para atualizar a lista" class="btn btn-refresh"><i class="lnr lnr-sync"></i></a>
                     </div>
