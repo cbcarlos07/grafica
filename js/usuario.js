@@ -233,7 +233,7 @@ var image = $('#image-area');
 $(document).ready(function(){
      var imagem = document.getElementById('imagem').value;
      //alert("Imagem: "+imagem);
-     console.log("Imagem: "+imagem);
+    // console.log("Imagem: "+imagem);
      if(imagem != ""){
         var src  =  '<img src="'+imagem+'" width="'+350+'" id="foto" style="margin-top: -150px;"/>';
          image.empty().html(src);
