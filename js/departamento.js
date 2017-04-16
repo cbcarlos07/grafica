@@ -30,8 +30,12 @@ function salvar(){
         var acao        = document.getElementById('acao').value;
         var fones       = $('.table').tableToJSON();
         var telefone    = JSON.stringify(fones);
-        //alert("Numero: "+numero);
-        $.ajax({
+        alert("Telefone: "+telefone);
+       /* if(telefone === "[]"){
+            $('input[id="telefone"]').css("border-color","red").focus();
+
+        }*/
+       $.ajax({
                 type    : 'post',
                 dataType: 'json',
                 url     : 'function/departamento.php',
@@ -207,16 +211,33 @@ $('.btn-add').on('click',function () {
    var contato     = document.getElementById('contato').value;
    var tipo        = document.getElementById('tipo').value;
    var dsTipo      = document.getElementById("tipo").options[document.getElementById("tipo").selectedIndex].text;
+
+   var fone = "";
+   if(telefone.length === 11){
+       fone = "("+telefone.substr(0,2)+")"+telefone.substr(2,5)+"-"+telefone.substr(7,4);
+   }else{
+       fone = "("+telefone.substr(0,2)+")"+telefone.substr(2,4)+"-"+telefone.substr(6,4);
+   }
+
    var content = "<tr>"+
-                  "  <td>"+telefone+"</td>"+
+                  "  <td>"+fone+"</td>"+
                   "  <td>"+observacao+"</td>"+
                   "  <td>"+contato+"</td>"+
                   "  <td>"+tipo+"</td>"+
                   "  <td>"+dsTipo+"</td>"+
-                  "  <td><a href='#div' class='btn btn-danger btn-remove btn-xs'>remover</a></td>"
+                  "  <td><a href='#div' class='btn btn-danger btn-remove btn-xs'>remover</a></td>"+
                  "</tr>";
    $(corpo).append(content);
+   limparContato('telefone');
+   limparContato('observacao');
+   limparContato('contato');
+    document.getElementById('tipo').selectedIndex = "0";
+
 });
+
+function limparContato(campo) {
+    document.getElementById(campo).value = "";
+}
 
 $("#tbody").on("click", ".btn-remove", function(e){
     $(this).closest('tr').remove();

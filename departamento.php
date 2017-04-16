@@ -111,7 +111,7 @@ $cliente = $clienteController->getCliente($_cliente);
 
             <div class="col-lg-3" ><h4><a href="#div" data-url="filial.php" data-id="<?php echo $_cliente; ?>" class="btn-voltar">
                         <img src="images/back.png" class="img-responsive" width="30" title="Voltar">
-                        Departamentos</a> de <b><?php echo $filial->getDsNmFantasia(); ?></b> </h4></div>
+                        Departamentos</a> de <b><?php echo $filial->getNmResponsavel(); ?></b> </h4></div>
             <div class="col-lg-7" >
                 <div style="margin-left: -150px;">
                     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" id="form-pesquisa">
@@ -133,8 +133,14 @@ $cliente = $clienteController->getCliente($_cliente);
             <div class="row"></div>
             <div class="col-lg-12">
                 <ul id="tree1">
-                    <li><a href="cliente.php"><?php echo $cliente->getDsNmFantasia(); ?></a>
-                        <ul><li><a href="#div" data-url="filial.php" data-id="<?php echo $_cliente; ?>" class="btn-voltar"><?php echo $filial->getDsNmFantasia(); ?></a></li></ul>
+                    <li><a href="cliente.php"><?php echo $cliente->getNmResponsavel(); ?></a>
+                        <ul>
+                            <li>
+                                <a href="#div" data-url="filial.php" data-id="<?php echo $_cliente; ?>" class="btn-voltar">
+                                    <?php echo $filial->getNmResponsavel(); ?>
+                                </a>
+                            </li>
+                        </ul>
 
                     </li>
 

@@ -111,7 +111,7 @@ function add($responsavel, $empresa, $cpfcnpj, $telefone, $email,  $endereco, $n
            $teste = $foneClienteController->insert($foneCliente);
        }
     }
-    if($teste)
+    if($genId > 0)
         echo json_encode(array('retorno' => 1));
     else
         echo json_encode(array('retorno' => 0));

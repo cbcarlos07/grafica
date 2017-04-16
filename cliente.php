@@ -179,80 +179,88 @@ $pListIterator = new ClienteListIterator($lista);
                             </tbody>
                         </table>
                     </div>
-<!-- INICIO DA PAGINAÇÃO -->
-                    <div id="buttom" class="row">
-                        <div class="col-md-12">
-                            <ul class="pagination">
-                                <?php
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Pagina&ccedil;&atilde;o</div>
+                        <div class="panel-body">
+                            <!-- INICIO DA PAGINAÇÃO -->
 
-                                  if($pagina == 1){
-                                  ?>
-                                      <li class="disabled">
-                                          <a href="#"
-                                             data-url="<?php echo $_SERVER['PHP_SELF']; ?>"
-                                             data-page="">&lt; Anterior</a>
-                                      </li>
-                                <?php
-                                  }else{
-                                ?>
-                                    <li class="page-item">  <a href="#"
-                                         data-url="<?php echo $_SERVER['PHP_SELF']; ?>"
-                                         data-page="<?php echo $pagina-1; ?>"
-                                         class="btn-page">&lt; Anterior</a>
-                                    </li>
-                                <?php
-                                }
 
-                                 for($i = 1; $i < $numPaginas + 1; $i++){
-                                     $disabled = "";
-
-                                      if($pagina == $i){
-                                         $disabled = "active";
-                                     }
-                                  ?>
-
-                                     <li class="<?php echo $disabled; ?>">
-                                         <a href="#"
-                                            data-url="<?php echo $_SERVER['PHP_SELF']; ?>"
-                                            data-page="<?php echo $i; ?>"
-                                            class="btn-page"
-                                            ><?php echo $i; ?>
-                                         </a>
-                                     </li>
-
-                               <?php
-                                 }
-                                ?>
-                                <?php
-                                if($numPaginas > 1){
-                                ?>
-                                    <?php
-                                    if($pagina == $numPaginas){
-                                    ?>
-                                        <li class="disabled"><a href="#"
-                                                            data-url="<?php echo $_SERVER['PHP_SELF']; ?>"
-                                                            data-page="<?php echo $pagina + 1; ?>"
-                                                            >Pr&oacute;ximo &gt; </a>
-                                        </li>
-                                   <?php
-                                    }else {
-                                        ?>
-                                        <li class="next"><a href="#"
-                                                            data-url="<?php echo $_SERVER['PHP_SELF']; ?>"
-                                                            data-page="<?php echo $pagina + 1; ?>"
-                                                            class="btn-page">Pr&oacute;ximo &gt; </a>
-                                        </li>
+                            <div id="buttom" class="row">
+                                <div class="col-md-12">
+                                    <ul class="pagination">
                                         <?php
-                                    }
-                                }
-                                ?>
 
-                            </ul>
+                                        if($pagina == 1){
+                                            ?>
+                                            <li class="disabled">
+                                                <a href="#"
+                                                   data-url="<?php echo $_SERVER['PHP_SELF']; ?>"
+                                                   data-page="">&lt; Anterior</a>
+                                            </li>
+                                            <?php
+                                        }else{
+                                            ?>
+                                            <li class="page-item">  <a href="#"
+                                                                       data-url="<?php echo $_SERVER['PHP_SELF']; ?>"
+                                                                       data-page="<?php echo $pagina-1; ?>"
+                                                                       class="btn-page">&lt; Anterior</a>
+                                            </li>
+                                            <?php
+                                        }
+
+                                        for($i = 1; $i < $numPaginas + 1; $i++){
+                                            $disabled = "";
+
+                                            if($pagina == $i){
+                                                $disabled = "active";
+                                            }
+                                            ?>
+
+                                            <li class="<?php echo $disabled; ?>">
+                                                <a href="#"
+                                                   data-url="<?php echo $_SERVER['PHP_SELF']; ?>"
+                                                   data-page="<?php echo $i; ?>"
+                                                   class="btn-page"
+                                                ><?php echo $i; ?>
+                                                </a>
+                                            </li>
+
+                                            <?php
+                                        }
+                                        ?>
+                                        <?php
+                                        if($numPaginas > 1){
+                                            ?>
+                                            <?php
+                                            if($pagina == $numPaginas){
+                                                ?>
+                                                <li class="disabled"><a href="#"
+                                                                        data-url="<?php echo $_SERVER['PHP_SELF']; ?>"
+                                                                        data-page="<?php echo $pagina + 1; ?>"
+                                                    >Pr&oacute;ximo &gt; </a>
+                                                </li>
+                                                <?php
+                                            }else {
+                                                ?>
+                                                <li class="next"><a href="#"
+                                                                    data-url="<?php echo $_SERVER['PHP_SELF']; ?>"
+                                                                    data-page="<?php echo $pagina + 1; ?>"
+                                                                    class="btn-page">Pr&oacute;ximo &gt; </a>
+                                                </li>
+                                                <?php
+                                            }
+                                        }
+                                        ?>
+
+                                    </ul>
+                                </div>
+
+
+                            </div>
+                            <!-- FIM DA PAGINAÇÃO -->
                         </div>
+                    </div>
 
-
-                </div>
-                    <!-- FIM DA PAGINAÇÃO -->
             </div>
         </div>
 

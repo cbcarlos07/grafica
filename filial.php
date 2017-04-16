@@ -97,7 +97,7 @@ $pListIterator = new FilialListIterator($lista);
 
             <br>
 
-            <div class="col-lg-3" ><h4><a href="cliente.php"><img src="images/back.png" class="img-responsive" width="30" title="Voltar">Filiais</a> de <b><?php echo $cliente->getDsNmFantasia(); ?></b> </h4></div>
+            <div class="col-lg-3" ><h4><a href="cliente.php"><img src="images/back.png" class="img-responsive" width="30" title="Voltar">Filiais</a> de <b><?php echo $cliente->getNmResponsavel(); ?></b> </h4></div>
             <div class="col-lg-7" >
                 <div style="margin-left: -150px;">
                     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" id="form-pesquisa">
