@@ -157,7 +157,7 @@ $pListIterator = new DepartamentoListIterator($lista);
                                         <a href="#" data-url="departamentoalt.php" data-filial="<?php echo $_id; ?>"  data-id="<?php echo $departamento->getCdDepartamento();  ?>"  class="btn btn-danger btn-xs btn-alterar btn-acao">Alterar</a>
                                         <a href="#" data-id="<?php echo $departamento->getCdDepartamento(); ?>" data-nome="<?php echo $departamento->getNmResponsavel(); ?>"  data-toggle="modal" data-target="#delete-modal" class="delete btn btn-danger btn-xs">Excluir</a>
                                        <!-- <a href="#" data-url="departamento.php" data-id="<?php echo $departamento->getCdDepartamento();  ?>" class="btn btn-danger btn-xs btn-carteira btn-acao">Departamento</a> -->
-                                        <a href="#" data-url="departamentoficha.php" data-id="<?php echo $departamento->getCdDepartamento();  ?>" class="btn btn-danger btn-xs btn-imprimir btn-acao">Imprimir</a>
+                                      <!--  <a href="#" data-url="departamentoficha.php" data-id="<?php echo $departamento->getCdDepartamento();  ?>" class="btn btn-danger btn-xs btn-imprimir btn-acao">Imprimir</a>-->
 
                                     </td>
 
