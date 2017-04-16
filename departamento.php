@@ -38,7 +38,9 @@ include_once "controller/DepartamentoController.class.php";
 include_once "controller/FilialController.class.php";
 include_once "beans/Departamento.class.php";
 include_once "beans/Filial.class.php";
+include_once "beans/Cliente.class.php";
 include_once "services/DepartamentoListIterator.class.php";
+include_once "controller/ClienteController.class.php";
 
 
 $filialController = new FilialController();
@@ -60,6 +62,9 @@ $inicio = ($registros*$pagina)-$registros;
 $lista = $departamentoController->getList($_id, $descricao,$inicio, $registros);
 $pListIterator = new DepartamentoListIterator($lista);
 
+$cliente = new Cliente();
+$clienteController = new ClienteController();
+$cliente = $clienteController->getCliente($_cliente);
 
 
 ?>
@@ -68,6 +73,8 @@ $pListIterator = new DepartamentoListIterator($lista);
 
 
  <link href="css/btn-style.css" type="text/css" rel="stylesheet">
+ <link href="css/tree.css" type="text/css" rel="stylesheet">
+
  <body class="sticky-header left-side-collapsed"  >
     <section>
     <!-- left side start-->
@@ -102,7 +109,9 @@ $pListIterator = new DepartamentoListIterator($lista);
 
             <br>
 
-            <div class="col-lg-3" ><h3><a href="#div" data-url="filial.php" data-id="<?php echo $_cliente; ?>" class="btn-voltar">Departamentos</a> de <b><?php echo $filial->getDsNmFantasia(); ?></b> </h3></div>
+            <div class="col-lg-3" ><h4><a href="#div" data-url="filial.php" data-id="<?php echo $_cliente; ?>" class="btn-voltar">
+                        <img src="images/back.png" class="img-responsive" width="30" title="Voltar">
+                        Departamentos</a> de <b><?php echo $filial->getDsNmFantasia(); ?></b> </h4></div>
             <div class="col-lg-7" >
                 <div style="margin-left: -150px;">
                     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" id="form-pesquisa">
@@ -120,6 +129,16 @@ $pListIterator = new DepartamentoListIterator($lista);
             </div>
             <div class="col-lg-2">
                 <a href="#" data-url="departamentocad.php" data-cliente="<?php echo $_id; ?>" data-id="<?php echo $_id; ?>" class="btn btn-primary novo-item">Novo Item</a>
+            </div>
+            <div class="row"></div>
+            <div class="col-lg-12">
+                <ul id="tree1">
+                    <li><a href="cliente.php"><?php echo $cliente->getDsNmFantasia(); ?></a>
+                        <ul><li><a href="#div" data-url="filial.php" data-id="<?php echo $_cliente; ?>" class="btn-voltar"><?php echo $filial->getDsNmFantasia(); ?></a></li></ul>
+
+                    </li>
+
+                </ul>
             </div>
             <div class="row"></div>
             <hr />
@@ -276,6 +295,7 @@ $pListIterator = new DepartamentoListIterator($lista);
             });
         </script>
         <script src="js/departamento.js"></script>
+            <script src="js/tree.js"></script>
     </section>
 
  </body>

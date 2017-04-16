@@ -61,6 +61,8 @@ $pListIterator = new FilialListIterator($lista);
 
 
  <link href="css/btn-style.css" type="text/css" rel="stylesheet">
+ <link href="css/tree.css" type="text/css" rel="stylesheet">
+
  <body class="sticky-header left-side-collapsed"  >
     <section>
     <!-- left side start-->
@@ -95,7 +97,7 @@ $pListIterator = new FilialListIterator($lista);
 
             <br>
 
-            <div class="col-lg-3" ><h2><a href="cliente.php">Filiais</a> de <b><?php echo $cliente->getDsNmFantasia(); ?></b> </h2></div>
+            <div class="col-lg-3" ><h4><a href="cliente.php"><img src="images/back.png" class="img-responsive" width="30" title="Voltar">Filiais</a> de <b><?php echo $cliente->getDsNmFantasia(); ?></b> </h4></div>
             <div class="col-lg-7" >
                 <div style="margin-left: -150px;">
                     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" id="form-pesquisa">
@@ -115,6 +117,14 @@ $pListIterator = new FilialListIterator($lista);
                 <a href="#" data-url="filialcad.php" data-id="<?php echo $_id; ?>" class="btn btn-primary novo-item">Novo Item</a>
             </div>
             <div class="row"></div>
+            <div class="col-lg-12">
+                <ul id="tree1">
+                  <li><a href="cliente.php"><?php echo $cliente->getDsNmFantasia(); ?></a>
+                   <ul></ul>
+                  </li>
+
+                </ul>
+            </div>
             <hr />
             <div class="mensagem alert "></div>
 
@@ -288,6 +298,7 @@ $pListIterator = new FilialListIterator($lista);
             });
         </script>
         <script src="js/filial.js"></script>
+        <script src="js/tree.js"></script>
     </section>
 
  </body>
