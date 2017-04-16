@@ -121,6 +121,7 @@ function salvar(){
 
             var codigo    = document.getElementById('id').value;
             var usuario   = document.getElementById('usuario').value;
+            var sobrenome = document.getElementById('sobrenome').value;
             var login     = document.getElementById('login').value;
             var senha     = document.getElementById('senha').value;
 
@@ -149,6 +150,7 @@ function salvar(){
                 data: {
                     'id'         : codigo,
                     'nome'       : usuario,
+                    'sobrenome'  : sobrenome,
                     'login'      : login,
                     'senha'      : senha,
                     'ativo'      : ativo,

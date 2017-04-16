@@ -82,6 +82,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 <input type="hidden" id="atual" value="S" />
                                 <input type="hidden" id="id" value="<?php echo $codigo; ?>" />
                                 <input type="hidden" id="usuario" value="<?php echo $usuario->getNmUsuario(); ?>" />
+                                <input type="hidden" id="sobrenome" value="<?php echo $usuario->getNmSobrenome(); ?>" />
                                 <input type="hidden" id="login" value="<?php echo $usuario->getDsLogin(); ?>" />
                                 <input type="hidden" id="cargo" value="<?php echo $usuario->getCargo()->getCdCargo(); ?>" />
                                 <input type="hidden" id="cpf" value="<?php echo $usuario->getNrCPF(); ?>" />

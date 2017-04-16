@@ -57,12 +57,12 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
                     <div class="form-group col-lg-3">
                         <label for="usuario">Nome</label>
-                        <input id="usuario" class="form-control" required=""
+                        <input id="usuario" class="form-control"
                                placeholder="Primeiro Nome" required="" value="<?php echo $usuario->getNmUsuario(); ?>"/>
                     </div>
                     <div class="form-group col-lg-9">
                         <label for="sobrenome">Sobrenome</label>
-                        <input id="sobrenome" class="form-control" required=""
+                        <input id="sobrenome" class="form-control"
                                placeholder="Sobrenome" required="" value="<?php echo $usuario->getNmSobrenome(); ?>"/>
                     </div>
                     <div class="row"></div>
