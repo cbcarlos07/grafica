@@ -99,14 +99,14 @@
 
 
             $pdf->SetY(35);
-            $pdf->SetX(28);
-            //$pdf->Rect(10,$y,25,$l);
-            $pdf->MultiCell(40,6,'FANTASIA',0,'L',false); // ESTA É A CELULA QUE PODE TER DADOS EM MAIS DE UMA LINHA
-
-            $pdf->SetY(40);
             $pdf->SetX(18);
             //$pdf->Rect(10,$y,25,$l);
             $pdf->MultiCell(40,6,'RAZAO SOCIAL',0,'L',false); // ESTA É A CELULA QUE PODE TER DADOS EM MAIS DE UMA LINHA
+
+            $pdf->SetY(40);
+            $pdf->SetX(27);
+            //$pdf->Rect(10,$y,25,$l);
+            $pdf->MultiCell(40,6,'FANTASIA',0,'L',false); // ESTA É A CELULA QUE PODE TER DADOS EM MAIS DE UMA LINHA
 
 
 

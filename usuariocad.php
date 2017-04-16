@@ -103,13 +103,13 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
                         <div id="frame">
 
-                            <div id="image-area" title="">
+                            <div id="image-area" title="Somente Imagens JPG">
 
                                 <span id="drop-message"> Arraste a imagem aqui </span>
 
                             </div>
 
-                            <span id="title"> Digite um titulo </span>
+                            <span id="title"> Somente Imagens JPG </span>
                         </div>
                     </div>
 
