@@ -101,7 +101,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                              $cpf2 = substr($filial->getNrCpfCnpj(), 2, 3);
                              $cpf3 = substr($filial->getNrCpfCnpj(), 5, 3);
                              $cpf4 = substr($filial->getNrCpfCnpj(), 8, 4);
-                             $cpf5 = substr($filial->getNrCpfCnpj(), 10, 2);
+                             $cpf5 = substr($filial->getNrCpfCnpj(), 12, 2);
                              $cpfcnpj = "$cpf1.$cpf2.$cpf3/$cpf4-$cpf5";
                          }
                          echo $cpfcnpj;?>"

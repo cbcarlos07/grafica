@@ -133,7 +133,7 @@ function change($id, $cliente, $responsavel, $empresa, $cpfcnpj, $telefone, $ema
     require_once "../beans/Cliente.class.php";
     require_once "../controller/FilialController.class.php";
     require_once "../controller/FoneFilialController.class.php";
-    //echo "Alterar";
+
     $filial = new Filial();
     $filial->setCdFilial($id);
     $filial->setCliente(new Cliente());
@@ -142,10 +142,14 @@ function change($id, $cliente, $responsavel, $empresa, $cpfcnpj, $telefone, $ema
     $filial->setDsNmFantasia($empresa);
     $vowels = array(".", "-","/");
     $novocpf = str_replace($vowels,'',$cpfcnpj);
+
+
     $filial->setNrCpfCnpj($novocpf);
     $filial->setDsEmail($email);
+
     $vowels = array(".", "-");
     $novocep= str_replace($vowels,'',$endereco);
+    //echo "Id: ".$complemento;
     $filial->setNrCep($novocep);
     $filial->setNrCasa($numero);
     $filial->setDsComplemento($complemento);
@@ -169,7 +173,7 @@ function change($id, $cliente, $responsavel, $empresa, $cpfcnpj, $telefone, $ema
         $foneFilial->getTipoContato()->setCdTipoContato($value->{'#'});
         $teste = $foneFilialController->insert($foneFilial);
     }
-    // echo "Retorno : ".$alterarBool;
+     //echo "Retorno : ".$alterarBool;
     if($alterarBool)
         echo json_encode(array('retorno' => 1));
     else

@@ -54,6 +54,7 @@ class FilialDAO
 
         $this->connection = new ConnectionFactory();
         $this->connection->beginTransaction();
+
         try{
             $query = "UPDATE filial SET 
                        CD_CLIENTE = :cliente 
@@ -79,8 +80,8 @@ class FilialDAO
             $stmt->bindValue(":cpfcnpj",$filial->getNrCpfCnpj(), PDO::PARAM_STR);
             $stmt->bindValue(":codigo",$filial->getCdFilial(),PDO::PARAM_INT);
             $stmt->execute();
-
-              $this->connection->commit();
+          //  echo "Commit";
+            $this->connection->commit();
             $teste =  true;
           //  print_r($stmt);
 
