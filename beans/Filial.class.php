@@ -9,7 +9,7 @@
 class Filial
 {
 private $cdFilial;
-private $nmResponsavel;
+private $dsRazaoSocial;
 private $dsNmFantasia;
 private $nrCpfCnpj;
 private $dsEmail;
@@ -18,6 +18,26 @@ private $nrCasa;
 private $dsComplemento;
 private $dtCadastro;
 private $cliente;
+
+    /**
+     * @return mixed
+     */
+    public function getDsRazaoSocial()
+    {
+        return $this->dsRazaoSocial;
+    }
+
+    /**
+     * @param mixed $dsRazaoSocial
+     * @return Filial
+     */
+    public function setDsRazaoSocial($dsRazaoSocial)
+    {
+        $this->dsRazaoSocial = $dsRazaoSocial;
+        return $this;
+    }
+
+
 
     /**
      * @return mixed
@@ -57,23 +77,6 @@ private $cliente;
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getNmResponsavel()
-    {
-        return $this->nmResponsavel;
-    }
-
-    /**
-     * @param mixed $nmResponsavel
-     * @return Filial
-     */
-    public function setNmResponsavel($nmResponsavel)
-    {
-        $this->nmResponsavel = $nmResponsavel;
-        return $this;
-    }
 
     /**
      * @return mixed

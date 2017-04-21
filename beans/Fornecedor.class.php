@@ -6,9 +6,9 @@
  * Date: 17/02/2017
  * Time: 14:08
  */
-class Cliente
+class Fornecedor
 {
-private $cdCliente;
+private $cdFornecedor;
 private $dsRazaoSocial;
 private $dsNmFantasia;
 private $nrCpfCnpj;
@@ -28,7 +28,7 @@ private $dtCadastro;
 
     /**
      * @param mixed $dsRazaoSocial
-     * @return Cliente
+     * @return Fornecedor
      */
     public function setDsRazaoSocial($dsRazaoSocial)
     {
@@ -39,18 +39,18 @@ private $dtCadastro;
     /**
      * @return mixed
      */
-    public function getCdCliente()
+    public function getCdFornecedor()
     {
-        return $this->cdCliente;
+        return $this->cdFornecedor;
     }
 
     /**
-     * @param mixed $cdCliente
-     * @return Cliente
+     * @param mixed $cdFornecedor
+     * @return Fornecedor
      */
-    public function setCdCliente($cdCliente)
+    public function setCdFornecedor($cdFornecedor)
     {
-        $this->cdCliente = $cdCliente;
+        $this->cdFornecedor = $cdFornecedor;
         return $this;
     }
 
@@ -65,7 +65,7 @@ private $dtCadastro;
 
     /**
      * @param mixed $dsNmFantasia
-     * @return Cliente
+     * @return Fornecedor
      */
     public function setDsNmFantasia($dsNmFantasia)
     {
@@ -83,7 +83,7 @@ private $dtCadastro;
 
     /**
      * @param mixed $nrCpfCnpj
-     * @return Cliente
+     * @return Fornecedor
      */
     public function setNrCpfCnpj($nrCpfCnpj)
     {
@@ -101,7 +101,7 @@ private $dtCadastro;
 
     /**
      * @param mixed $dsEmail
-     * @return Cliente
+     * @return Fornecedor
      */
     public function setDsEmail($dsEmail)
     {
@@ -119,7 +119,7 @@ private $dtCadastro;
 
     /**
      * @param mixed $nrCep
-     * @return Cliente
+     * @return Fornecedor
      */
     public function setNrCep($nrCep)
     {
@@ -139,7 +139,7 @@ private $dtCadastro;
 
     /**
      * @param mixed $nrCasa
-     * @return Cliente
+     * @return Fornecedor
      */
     public function setNrCasa($nrCasa)
     {
@@ -157,7 +157,7 @@ private $dtCadastro;
 
     /**
      * @param mixed $dsComplemento
-     * @return Cliente
+     * @return Fornecedor
      */
     public function setDsComplemento($dsComplemento)
     {
@@ -175,7 +175,7 @@ private $dtCadastro;
 
     /**
      * @param mixed $dtCadastro
-     * @return Cliente
+     * @return Fornecedor
      */
     public function setDtCadastro($dtCadastro)
     {

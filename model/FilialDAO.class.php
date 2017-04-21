@@ -21,16 +21,16 @@ class FilialDAO
          $this->connection->beginTransaction();
          try{
              $query = "INSERT INTO filial 
-                       (CD_FILIAL, CD_CLIENTE,  NM_RESPONSAVEL, DS_NM_FANTASIA, NR_CEP, NR_CASA, DS_COMPLEMENTO
+                       (CD_FILIAL, CD_CLIENTE,  DS_NM_FANTASIA, DS_RAZAO_SOCIAL, NR_CEP, NR_CASA, DS_COMPLEMENTO
                        ,DS_EMAIL, NR_CPF_CNPJ)
                        VALUES 
-                       (NULL,  :cliente, :responsavel, :empresa, :cep, :casa, :complemento, :email, :cpfcnpj)";
+                       (NULL,  :cliente, :fantasia, :razao, :cep, :casa, :complemento, :email, :cpfcnpj)";
 
 
              $stmt = $this->connection->prepare($query);
              $stmt->bindValue(":cliente", $filial->getCliente()->getCdCliente(), PDO::PARAM_INT);
-             $stmt->bindValue(":responsavel", $filial->getNmResponsavel(), PDO::PARAM_STR);
-             $stmt->bindValue(":empresa",$filial->getDsNmFantasia(), PDO::PARAM_STR);
+             $stmt->bindValue(":razao", $filial->getDsRazaoSocial(), PDO::PARAM_STR);
+             $stmt->bindValue(":fantasia",$filial->getDsNmFantasia(), PDO::PARAM_STR);
              $stmt->bindValue(":cep",$filial->getNrCep(), PDO::PARAM_STR);
              $stmt->bindValue(":casa",$filial->getNrCasa(), PDO::PARAM_STR);
              $stmt->bindValue(":complemento",$filial->getDsComplemento(), PDO::PARAM_STR);
@@ -58,8 +58,8 @@ class FilialDAO
         try{
             $query = "UPDATE filial SET 
                        CD_CLIENTE = :cliente 
-                      ,NM_RESPONSAVEL =  :responsavel
-                      ,DS_NM_FANTASIA =  :empresa
+                      ,DS_NM_FANTASIA =  :fantasia
+                      ,DS_RAZAO_SOCIAL =  :razao
                       ,NR_CEP = :cep
                       ,NR_CASA = :casa
                       ,DS_COMPLEMENTO = :complemento
@@ -71,8 +71,8 @@ class FilialDAO
 
             $stmt = $this->connection->prepare($query);
             $stmt->bindValue(":cliente",$filial->getCliente()->getCdCliente(),PDO::PARAM_INT);
-            $stmt->bindValue(":responsavel", $filial->getNmResponsavel(), PDO::PARAM_STR);
-            $stmt->bindValue(":empresa",$filial->getDsNmFantasia(), PDO::PARAM_STR);
+            $stmt->bindValue(":razao", $filial->getDsRazaoSocial(), PDO::PARAM_STR);
+            $stmt->bindValue(":fantasia",$filial->getDsNmFantasia(), PDO::PARAM_STR);
             $stmt->bindValue(":cep",$filial->getNrCep(), PDO::PARAM_STR);
             $stmt->bindValue(":casa",$filial->getNrCasa(), PDO::PARAM_STR);
             $stmt->bindValue(":complemento",$filial->getDsComplemento(), PDO::PARAM_STR);
@@ -128,7 +128,7 @@ class FilialDAO
                 $sql = "SELECT F.*
                         FROM filial F
                         WHERE F.CD_CLIENTE = :cliente
-                        AND   F.DS_NM_FANTASIA LIKE :empresa
+                        AND   F.DS_RAZAO_SOCIAL LIKE :empresa
                         LIMIT :inicio, :limite";
                 $stmt = $this->connection->prepare($sql);
                 $stmt->bindValue(":cliente", $cliente, PDO::PARAM_INT);
@@ -142,8 +142,8 @@ class FilialDAO
                 $filial->setCdFilial($row['CD_FILIAL']);
                 $filial->setCliente(new Cliente());
                 $filial->getCliente()->setCdCliente($row['CD_CLIENTE']);
-                $filial->setNmResponsavel($row['NM_RESPONSAVEL']);
                 $filial->setDsNmFantasia($row['DS_NM_FANTASIA']);
+                $filial->setDsRazaoSocial($row['DS_RAZAO_SOCIAL']);
                 $filial->setNrCep($row['NR_CEP']);
                 $filial->setNrCasa($row['NR_CASA']);
                 $filial->setDsComplemento($row['DS_COMPLEMENTO']);
@@ -184,8 +184,8 @@ class FilialDAO
                 $filial->setCdFilial($row['CD_FILIAL']);
                 $filial->setCliente(new Cliente());
                 $filial->getCliente()->setCdCliente($row['CD_CLIENTE']);
-                $filial->setNmResponsavel($row['NM_RESPONSAVEL']);
                 $filial->setDsNmFantasia($row['DS_NM_FANTASIA']);
+                $filial->setDsRazaoSocial($row['DS_RAZAO_SOCIAL']);
                 $filial->setNrCep($row['NR_CEP']);
                 $filial->setNrCasa($row['NR_CASA']);
                 $filial->setDsComplemento($row['DS_COMPLEMENTO']);
@@ -220,8 +220,8 @@ class FilialDAO
                 $filial->setCdFilial($row['CD_FILIAL']);
                 $filial->setCliente(new Cliente());
                 $filial->getCliente()->setCdCliente($row['CD_CLIENTE']);
-                $filial->setNmResponsavel($row['NM_RESPONSAVEL']);
                 $filial->setDsNmFantasia($row['DS_NM_FANTASIA']);
+                $filial->setDsRazaoSocial($row['DS_RAZAO_SOCIAL']);
                 $filial->setNrCep($row['NR_CEP']);
                 $filial->setNrCasa($row['NR_CASA']);
                 $filial->setDsComplemento($row['DS_COMPLEMENTO']);

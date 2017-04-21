@@ -1,15 +1,4 @@
-<?php include "include/head.php";
-include "include/error.php";
-$id = $_POST['id'];
-
-include "beans/Cliente.class.php";
-include "controller/ClienteController.class.php";
-
-$cliente = new Cliente();
-$clienteController = new ClienteController();
-$cliente = $clienteController->getCliente($id);
-
-?>
+<?php include "include/head.php"; ?>
 
 <!--
 Author: W3layouts
@@ -36,6 +25,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			<!--notification menu start -->
 			<?php  include "include/supbar.php"; ?>
 			<!--notification menu end -->
+
             <!-- Modal -->
             <div class="modal fade" id="cancelar-modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
                 <div class="modal-dialog" role="document">
@@ -56,50 +46,37 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             <div class="row"></div>
             <br />
             <div style="text-align: center;">
-            <h3>Alterar Cadastro de Cliente</h3>
+            <h3>Cadastro de Fornecedor</h3>
             </div>
             <div class="col-lg-1"></div>
             <div class="col-lg-8">
 
                 <div class="mensagem alert "></div>
                 <form method="post" id="form" data-toggle="validator">
-                    <input id="id" value="<?php echo $id; ?>" type="hidden">
-                    <input id="acao" value="A" type="hidden">
-                    <input id="endereco"  type="hidden" value="<?php echo $cliente->getNrCep(); ?>">
+                    <input id="id" value="0" type="hidden">
+                    <input id="acao" value="C" type="hidden">
+                    <input id="endereco"  type="hidden">
                     <div class="form-group col-lg-12">
                         <label for="fantasia">Fantasia</label>
-                        <input id="fantasia" class="form-control" required=""
-                               autofocus placeholder="Nome Fantasia" value="<?php echo $cliente->getDsNmFantasia(); ?>"/>
+                        <input id="fantasia" class="form-control" required="" autofocus placeholder="Nome Fantasia"/>
                     </div>
                     <div class="row"></div>
                     <div class="form-group col-lg-12">
                         <label for="razao">Raz&atilde;o Social</label>
-                        <input id="razao" class="form-control" required="" placeholder="Raz&atilde;o Social"
-                        value="<?php echo $cliente->getDsRazaoSocial(); ?>"/>
+                        <input id="razao" class="form-control" required="" placeholder="Raz&atilde;o Social"/>
                     </div>
                     <div class="row"></div>
                     <div class="form-group col-lg-4">
                         <label for="cpfcnpj">CPF</label>
-                        <?php
-                        $cpf = "";
-                        $cnpj = "";
-                        if(strlen($cliente->getNrCpfCnpj()) == 11){
-                            $cpf = "checked";
-                        }else{
-                            $cnpj = "checked";
-                        }
-                        ?>
-                        <input id="cpfcnpj" class="form-control" required="" placeholder="00.000.000/0000-00"
-                        value="<?php echo $cliente->getNrCpfCnpj(); ?>"/>
-                        <span><label><input name="doc" id="checkcpf" type="radio" <?php echo $cpf; ?> class="cpf" > CPF</label>
+                        <input id="cpfcnpj" class="form-control" required="" placeholder="00.000.000/0000-00"/>
+                        <span><label><input name="doc" type="radio"  id="checkcpf" class="cpf" > CPF</label>
                             &nbsp;&nbsp;&nbsp;
-                            <label><input name="doc" id="checkcnpj" type="radio" <?php echo $cnpj; ?> class="cnpj"> CNPJ</label>
+                            <label><input name="doc" type="radio" id="checkcnpj" class="cnpj" checked> CNPJ</label>
                         </span>
                     </div>
                     <div class="form-group col-lg-4">
                         <label for="email">E-mail</label>
-                        <input type="email" id="email" class="form-control" required="" placeholder="exemplo@email.com"
-                        value="<?php echo $cliente->getDsEmail(); ?>"/>
+                        <input type="email" id="email" class="form-control" required="" placeholder="exemplo@email.com"/>
                     </div>
                     <div class="row"></div>
                     <div class="form-group col-lg-2">
@@ -130,30 +107,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     <table class="table table-hover">
                         <thead>
                         <th>Telefone</th><th>Observacao</th><th>Contato</th><th width="1">#</th><th>Tipo</th><th></th>
-                           <tbody id="tbody">
-                           <?php
-                           include "beans/FoneCliente.class.php";
-                           include "controller/FoneClienteController.class.php";
-                           include "services/FoneClienteListIterator.class.php";
-                           $foneCliente = new FoneCliente();
-                           $foneClienteController = new FoneClienteController();
-                           $lista = $foneClienteController->getList($id);
-                           $foneClienteList = new FoneClienteListIterator($lista);
-                           while ($foneClienteList->hasNextFoneCliente()){
-                             $foneCliente = $foneClienteList->getNextFoneCliente();
-                             ?>
-                               <tr>
-                                   <td><?php echo $foneCliente->getNrTelefone(); ?></td>
-                                   <td><?php echo $foneCliente->getObsTelefone(); ?></td>
-                                   <td><?php echo $foneCliente->getNmContato(); ?></td>
-                                   <td><?php echo $foneCliente->getTipoContato()->getCdTipoContato(); ?></td>
-                                   <td><?php echo $foneCliente->getTipoContato()->getDsTipoContato(); ?></td>
-                                   <td><a href='#div' class='btn btn-danger btn-remove btn-xs'>remover</a></td>
-                               </tr>
-                           <?php
-                           }
-                           ?>
-                        </tbody>
+                           <tbody id="tbody"></tbody>
                         </thead>
                     </table>
                     <div class="row"></div>
@@ -166,12 +120,13 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                         <div class="panel-body">
                             <div class="form-group col-lg-2">
                                 <label for="cep">CEP</label>
-                                <input id="cep" class="form-control" placeholder="00.000-000" onblur="buscarCEP()" />
+                                <input id="cep" class="form-control" placeholder="00.000-000"
+                                       onblur="buscarCEP()" required=""/>
                             </div>
                             <div class="row"></div>
                             <div class="form-group col-lg-6">
                                 <label for="logradouro">Logradouro</label>
-                                <input id="logradouro" class="form-control" disabled="" />
+                                <input id="logradouro" class="form-control" disabled="" required="" />
                             </div>
                             <div class="form-group col-lg-4">
                                 <label for="bairro">Bairro</label>
@@ -179,13 +134,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                             </div>
                             <div class="form-group col-lg-2">
                                 <label for="numero">N&uacute;mero</label>
-                                <input id="numero" class="form-control" required=""
-                                value="<?php echo $cliente->getNrCasa(); ?>"/>
+                                <input id="numero" class="form-control" required="" />
                             </div>
                             <div class="form-group col-lg-12">
                                 <label for="complemento">Complemento</label>
-                                <input id="complemento" class="form-control"
-                                value="<?php echo $cliente->getDsComplemento(); ?>"/>
+                                <input id="complemento" class="form-control" />
                             </div>
                         </div>
                     </div>
@@ -248,7 +201,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     </script>                                                                                                                                                   ,0ççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççççç
     <script src="js/validarcpf.js"></script>
     <script src="js/validator.min.js"></script>
-    <script src="js/cliente.js"></script>
+    <script src="js/fornecedor.js"></script>
 
 
  </body>

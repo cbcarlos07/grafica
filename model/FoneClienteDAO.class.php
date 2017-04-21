@@ -57,6 +57,7 @@ class FoneClienteDAO
             $stmt->bindValue(":cliente", $foneCliente->getCliente()->getCdCliente(), PDO::PARAM_INT);
             $stmt->bindValue(":telefone", $foneCliente->getNrTelefone(), PDO::PARAM_STR);
             $stmt->bindValue(":observacao", $foneCliente->getObsTelefone(), PDO::PARAM_STR);
+            $stmt->bindValue(":contato", $foneCliente->getNmContato(), PDO::PARAM_STR);
             $stmt->bindValue(":tipo", $foneCliente->getTipoContato()->getCdTipoContato(), PDO::PARAM_INT);
             $stmt->execute();
             $this->connection->commit();
@@ -116,6 +117,7 @@ class FoneClienteDAO
                 $foneCliente->getCliente()->setCdCliente($row['CD_CLIENTE']);
                 $foneCliente->setNrTelefone($row['NR_TELEFONE']);
                 $foneCliente->setObsTelefone($row['OBS_TELEFONE']);
+                $foneCliente->setNmContato($row['NM_CONTATO']);
                 $foneCliente->setTipoContato(new TipoContato());
                 $foneCliente->getTipoContato()->setCdTipoContato($row['CD_TIPO_CONTATO']);
                 $foneCliente->getTipoContato()->setDsTipoContato($row['DS_TIPO_CONTATO']);

@@ -20,9 +20,8 @@ function salvar(){
     jQuery('#form').submit(function () {
        // alert("Submit");
         var codigo      = document.getElementById('id').value;
-       // alert('End: '+codigo);
-        var responsavel = document.getElementById('responsavel').value;
-        var empresa     = document.getElementById('empresa').value;
+        var fantasia    = document.getElementById('fantasia').value;
+        var razao       = document.getElementById('razao').value;
         var cpfcnpj     = document.getElementById('cpfcnpj').value;
         var email       = document.getElementById('email').value;
         var endereco    = document.getElementById('cep').value;
@@ -39,9 +38,9 @@ function salvar(){
                 beforeSend : carregando,
                 data: {
                     'id'          : codigo,
-                    'responsavel' : responsavel,
-                    'empresa'     : empresa,
-                    'cpfcnpj'         : cpfcnpj,
+                    'fantasia'    : fantasia,
+                    'razao'       : razao,
+                    'cpfcnpj'     : cpfcnpj,
                     'telefone'    : telefone,
                     'email'       : email,
                     'endereco'    : endereco,
@@ -51,7 +50,7 @@ function salvar(){
                 },
                 success: function (data) {
                    // alert(data.retorno);
-                    if (data.retorno == 1) {
+                    if (data.retorno === 1) {
                         sucesso('Opera&ccedil;&atilde;o realizada com sucesso!');
                     }
                      else {

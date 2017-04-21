@@ -57,13 +57,13 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     <input id="acao" value="C" type="hidden">
                     <input id="endereco"  type="hidden">
                     <div class="form-group col-lg-12">
-                        <label for="responsavel">Fantasia</label>
-                        <input id="responsavel" class="form-control" required="" autofocus placeholder="Nome Fantasia"/>
+                        <label for="fantasia">Fantasia</label>
+                        <input id="fantasia" class="form-control" required="" autofocus placeholder="Nome Fantasia"/>
                     </div>
                     <div class="row"></div>
                     <div class="form-group col-lg-12">
-                        <label for="empresa">Raz&atilde;o Social</label>
-                        <input id="empresa" class="form-control" required="" placeholder="Raz&atilde;o Social"/>
+                        <label for="razao">Raz&atilde;o Social</label>
+                        <input id="razao" class="form-control" required="" placeholder="Raz&atilde;o Social"/>
                     </div>
                     <div class="row"></div>
                     <div class="form-group col-lg-4">
@@ -81,7 +81,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     <div class="row"></div>
                     <div class="form-group col-lg-2">
                         <label for="telefone">Telefone  </label>
-                        <input id="telefone" type="tel" class="form-control" required="" placeholder="(00)0000-0000"/>
+                        <input id="telefone" type="tel" class="form-control" placeholder="(00)0000-0000"/>
                     </div>
                     <div class="form-group col-lg-2">
                         <label for="observacao">Observa&ccedil;&atilde;o</label>

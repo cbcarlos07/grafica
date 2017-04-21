@@ -60,21 +60,21 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     <input id="endereco" value="" type="hidden"/>
                     <input id="cliente"  type="hidden" value="<?php echo $_cliente; ?>">
                     <div class="form-group col-lg-12">
-                        <label for="responsavel">Fantasia</label>
-                        <input id="responsavel" class="form-control" required="" autofocus placeholder="Nome Fantasia"/>
+                        <label for="fantasia">Fantasia</label>
+                        <input id="fantasia" class="form-control" required="" autofocus placeholder="Nome Fantasia"/>
                     </div>
                     <div class="row"></div>
                     <div class="form-group col-lg-12">
-                        <label for="empresa">Raz&atilde;o Social</label>
-                        <input id="empresa" class="form-control" required="" placeholder="Raz&atilde;o Social"/>
+                        <label for="razao">Raz&atilde;o Social</label>
+                        <input id="razao" class="form-control" required="" placeholder="Raz&atilde;o Social"/>
                     </div>
                     <div class="row"></div>
                     <div class="form-group col-lg-4">
                         <label for="cpfcnpj">CPF</label>
                         <input id="cpfcnpj" class="form-control" required="" placeholder="000.000.000-00"/>
-                        <span><label><input name="doc" type="radio" id="checkcpf" class="cpf" checked> CPF</label>
+                        <span><label><input name="doc" type="radio" id="checkcpf" class="cpf" > CPF</label>
                             &nbsp;&nbsp;&nbsp;
-                            <label><input name="doc" type="radio" id="checkcnpj" class="cnpj"> CNPJ</label>
+                            <label><input name="doc" type="radio" id="checkcnpj" class="cnpj" checked> CNPJ</label>
                         </span>
                     </div>
                     <div class="form-group col-lg-4">

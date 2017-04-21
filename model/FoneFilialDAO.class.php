@@ -57,6 +57,7 @@ class FoneFilialDAO
             $stmt->bindValue(":filial", $foneFilial->getFilial()->getCdFilial(), PDO::PARAM_INT);
             $stmt->bindValue(":telefone", $foneFilial->getNrTelefone(), PDO::PARAM_STR);
             $stmt->bindValue(":observacao", $foneFilial->getObsTelefone(), PDO::PARAM_STR);
+            $stmt->bindValue(":contato", $foneFilial->getNmContato(), PDO::PARAM_STR);
             $stmt->bindValue(":tipo", $foneFilial->getTipoContato()->getCdTipoContato(), PDO::PARAM_INT);
             $stmt->execute();
             $this->connection->commit();
@@ -116,6 +117,7 @@ class FoneFilialDAO
                 $foneFilial->getFilial()->setCdFilial($row['CD_FILIAL']);
                 $foneFilial->setNrTelefone($row['NR_TELEFONE']);
                 $foneFilial->setObsTelefone($row['OBS_TELEFONE']);
+                $foneFilial->setNmContato($row['NM_CONTATO']);
                 $foneFilial->setTipoContato(new TipoContato());
                 $foneFilial->getTipoContato()->setCdTipoContato($row['CD_TIPO_CONTATO']);
                 $foneFilial->getTipoContato()->setDsTipoContato($row['DS_TIPO_CONTATO']);

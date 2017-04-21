@@ -97,7 +97,7 @@ $pListIterator = new FilialListIterator($lista);
 
             <br>
 
-            <div class="col-lg-3" ><h4><a href="cliente.php"><img src="images/back.png" class="img-responsive" width="30" title="Voltar">Filiais</a> de <b><?php echo $cliente->getNmResponsavel(); ?></b> </h4></div>
+            <div class="col-lg-3" ><h4><a href="cliente.php"><img src="images/back.png" class="img-responsive" width="30" title="Voltar">Filiais</a> de <b><?php echo $cliente->getDsNmFantasia(); ?></b> </h4></div>
             <div class="col-lg-7" >
                 <div style="margin-left: -150px;">
                     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" id="form-pesquisa">
@@ -152,8 +152,8 @@ $pListIterator = new FilialListIterator($lista);
                                 ?>
                                 <tr>
                                     <th scope="row"><?php echo $filial->getCdFilial(); ?></th>
-                                    <td><?php echo $filial->getNmResponsavel(); ?></td>
                                     <td><?php echo $filial->getDsNmFantasia(); ?></td>
+                                    <td><?php echo $filial->getDsRazaoSocial(); ?></td>
                                     <td><?php
                                         $cpfcnpj = "";
                                         if(strlen($filial->getNrCpfCnpj()) == 11 ) {
@@ -177,7 +177,7 @@ $pListIterator = new FilialListIterator($lista);
 
                                     <td class="action">
                                         <a href="#" data-url="filialalt.php" data-id="<?php echo $filial->getCdFilial();  ?>"  class="btn btn-danger btn-xs btn-alterar btn-acao">Alterar</a>
-                                        <a href="#" data-id="<?php echo $filial->getCdFilial(); ?>" data-nome="<?php echo $filial->getNmResponsavel(); ?>"  data-toggle="modal" data-target="#delete-modal" class="delete btn btn-danger btn-xs">Excluir</a>
+                                        <a href="#" data-id="<?php echo $filial->getCdFilial(); ?>" data-nome="<?php echo $filial->getDsNmFantasia(); ?>"  data-toggle="modal" data-target="#delete-modal" class="delete btn btn-danger btn-xs">Excluir</a>
                                         <a href="#" data-url="departamento.php" data-id="<?php echo $filial->getCdFilial();  ?>" data-cliente="<?php echo $_id; ?>" class="btn btn-danger btn-xs btn-carteira btn-acao">Departamento</a>
                                         <a href="#" data-url="filialficha.php" data-id="<?php echo $filial->getCdFilial();  ?>" class="btn btn-danger btn-xs btn-imprimir btn-acao">Imprimir</a>
 

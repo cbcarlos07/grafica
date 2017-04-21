@@ -7,8 +7,8 @@
  */
 include ("../include/error.php");
 $id           = 0;
-$responsavel  =  "";
-$empresa      =  "";
+$fantasia     =  "";
+$razao        =  "";
 $cpfcnpj      =  "";
 $telefone     =  "";
 $email        =  "";
@@ -22,12 +22,12 @@ if(isset($_POST['id'])){
     $id = $_POST['id'];
 }
 
-if(isset($_POST['responsavel'])){
-    $responsavel = $_POST['responsavel'];
+if(isset($_POST['fantasia'])){
+    $fantasia = $_POST['fantasia'];
 }
 
-if(isset($_POST['empresa'])){
-    $empresa = $_POST['empresa'];
+if(isset($_POST['razao'])){
+    $razao = $_POST['razao'];
 }
 
 if(isset($_POST['cpfcnpj'])){
@@ -54,11 +54,11 @@ if(isset($_POST['numero'])){
 
 switch ($acao){
     case 'C':
-        add($responsavel, $empresa, $cpfcnpj, $telefone, $email,  $endereco, $numero,
+        add($fantasia, $razao, $cpfcnpj, $telefone, $email,  $endereco, $numero,
             $complemento);
         break;
     case 'A':
-        change($id, $responsavel, $empresa, $cpfcnpj, $telefone, $email,  $endereco, $numero,
+        change($id, $fantasia, $razao, $cpfcnpj, $telefone, $email,  $endereco, $numero,
             $complemento);
         break;
     case 'E':
@@ -70,7 +70,7 @@ switch ($acao){
 
 }
 
-function add($responsavel, $empresa, $cpfcnpj, $telefone, $email,  $endereco, $numero,
+function add($fantasia, $razao, $cpfcnpj, $telefone, $email,  $endereco, $numero,
              $complemento){
    // echo "<script>alert('Adicionar'); </script>";
     require_once "../beans/Cliente.class.php";
@@ -80,8 +80,8 @@ function add($responsavel, $empresa, $cpfcnpj, $telefone, $email,  $endereco, $n
     require_once "../controller/FoneClienteController.class.php";
 
     $cliente = new Cliente();
-    $cliente->setNmResponsavel($responsavel);
-    $cliente->setDsNmFantasia($empresa);
+    $cliente->setDsNmFantasia($fantasia);
+    $cliente->setDsRazaoSocial($razao);
     $vowels = array(".", "-","/");
     $novocpf = str_replace($vowels,'',$cpfcnpj);
     $cliente->setNrCpfCnpj($novocpf);
@@ -118,7 +118,7 @@ function add($responsavel, $empresa, $cpfcnpj, $telefone, $email,  $endereco, $n
 }
 
 
-function change($id, $responsavel, $empresa, $cpfcnpj, $telefone, $email,  $endereco, $numero,
+function change($id, $fantasia, $razao, $cpfcnpj, $telefone, $email,  $endereco, $numero,
                 $complemento){
     require_once "../beans/Cliente.class.php";
     require_once "../beans/FoneCliente.class.php";
@@ -128,8 +128,8 @@ function change($id, $responsavel, $empresa, $cpfcnpj, $telefone, $email,  $ende
     //echo "Alterar";
     $cliente = new Cliente();
     $cliente->setCdCliente($id);
-    $cliente->setNmResponsavel($responsavel);
-    $cliente->setDsNmFantasia($empresa);
+    $cliente->setDsRazaoSocial($razao);
+    $cliente->setDsNmFantasia($fantasia);
     $vowels = array(".", "-","/");
     $novocpf = str_replace($vowels,'',$cpfcnpj);
     $cliente->setNrCpfCnpj($novocpf);

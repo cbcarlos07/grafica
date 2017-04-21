@@ -8,8 +8,8 @@
 include ("../include/error.php");
 $id           = 0;
 $cliente      = 0;
-$responsavel  =  "";
-$empresa      =  "";
+$fantasia     =  "";
+$razao      =  "";
 $cpfcnpj      =  "";
 $telefone     =  "";
 $email        =  "";
@@ -26,12 +26,12 @@ if(isset($_POST['id'])){
     $id = $_POST['id'];
 }
 
-if(isset($_POST['responsavel'])){
-    $responsavel = $_POST['responsavel'];
+if(isset($_POST['razao'])){
+    $razao = $_POST['razao'];
 }
 
-if(isset($_POST['empresa'])){
-    $empresa = $_POST['empresa'];
+if(isset($_POST['fantasia'])){
+    $fantasia = $_POST['fantasia'];
 }
 
 if(isset($_POST['cpfcnpj'])){
@@ -58,11 +58,11 @@ if(isset($_POST['numero'])){
 
 switch ($acao){
     case 'C':
-        add($cliente, $responsavel, $empresa, $cpfcnpj, $telefone, $email,  $endereco, $numero,
+        add($cliente, $fantasia, $razao, $cpfcnpj, $telefone, $email,  $endereco, $numero,
             $complemento);
         break;
     case 'A':
-        change($id, $cliente, $responsavel, $empresa, $cpfcnpj, $telefone, $email,  $endereco, $numero,
+        change($id, $cliente, $fantasia, $razao, $cpfcnpj, $telefone, $email,  $endereco, $numero,
             $complemento);
         break;
     case 'E':
@@ -74,7 +74,7 @@ switch ($acao){
 
 }
 
-function add($cliente, $responsavel, $empresa, $cpfcnpj, $telefone, $email,  $endereco, $numero,
+function add($cliente, $fantasia, $razao, $cpfcnpj, $telefone, $email,  $endereco, $numero,
              $complemento){
     // echo "<script>alert('Adicionar'); </script>";
     require_once "../beans/Filial.class.php";
@@ -87,8 +87,8 @@ function add($cliente, $responsavel, $empresa, $cpfcnpj, $telefone, $email,  $en
     $filial = new Filial();
     $filial->setCliente(new Cliente());
     $filial->getCliente()->setCdCliente($cliente);
-    $filial->setNmResponsavel($responsavel);
-    $filial->setDsNmFantasia($empresa);
+    $filial->setDsRazaoSocial($razao);
+    $filial->setDsNmFantasia($fantasia);
     $vowels = array(".", "-","/");
     $novocpf = str_replace($vowels,'',$cpfcnpj);
     $filial->setNrCpfCnpj($novocpf);
@@ -125,7 +125,7 @@ function add($cliente, $responsavel, $empresa, $cpfcnpj, $telefone, $email,  $en
 }
 
 
-function change($id, $cliente, $responsavel, $empresa, $cpfcnpj, $telefone, $email,  $endereco, $numero,
+function change($id, $cliente, $fantasia, $razao, $cpfcnpj, $telefone, $email,  $endereco, $numero,
                 $complemento){
     require_once "../beans/Filial.class.php";
     require_once "../beans/FoneFilial.class.php";
@@ -138,8 +138,8 @@ function change($id, $cliente, $responsavel, $empresa, $cpfcnpj, $telefone, $ema
     $filial->setCdFilial($id);
     $filial->setCliente(new Cliente());
     $filial->getCliente()->setCdCliente($cliente);
-    $filial->setNmResponsavel($responsavel);
-    $filial->setDsNmFantasia($empresa);
+    $filial->setDsRazaoSocial($razao);
+    $filial->setDsNmFantasia($fantasia);
     $vowels = array(".", "-","/");
     $novocpf = str_replace($vowels,'',$cpfcnpj);
 

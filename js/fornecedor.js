@@ -5,9 +5,9 @@
 $('.novo-item').on('click', function(){
 
     var url = $(this).data('url');
-    var _cliente = $(this).data('id');
+    //alert(url);
     var form = $('<form action="' + url + '" method="post">' +
-        '<input type="hidden" name="cliente" value="' + _cliente + '" />' +
+        //'<input type="text" name="codigo" value="' + codigo + '" />' +
         '</form>');
    // var div = $('<div style="display: none;>"'+form+'</div>');
     $('body').append(form);
@@ -20,8 +20,6 @@ function salvar(){
     jQuery('#form').submit(function () {
        // alert("Submit");
         var codigo      = document.getElementById('id').value;
-       // alert('End: '+codigo);
-        var cliente     = document.getElementById('cliente').value;
         var fantasia    = document.getElementById('fantasia').value;
         var razao       = document.getElementById('razao').value;
         var cpfcnpj     = document.getElementById('cpfcnpj').value;
@@ -36,11 +34,10 @@ function salvar(){
         $.ajax({
                 type    : 'post',
                 dataType: 'json',
-                url     : 'function/filial.php',
+                url     : 'function/fornecedor.php',
                 beforeSend : carregando,
                 data: {
                     'id'          : codigo,
-                    'cliente'     : cliente,
                     'fantasia'    : fantasia,
                     'razao'       : razao,
                     'cpfcnpj'     : cpfcnpj,
@@ -54,7 +51,7 @@ function salvar(){
                 success: function (data) {
                    // alert(data.retorno);
                     if (data.retorno === 1) {
-                        sucesso('Opera&ccedil;&atilde;o realizada com sucesso!', cliente);
+                        sucesso('Opera&ccedil;&atilde;o realizada com sucesso!');
                     }
                      else {
                         errosend('N&atilde;o foi poss&iacute;vel realizar opera&ccedil;&atilde;o. Verifique se todos os campos est&atilde;o preenchidos ');
@@ -71,7 +68,7 @@ function deletar(codigo, acao){
     $.ajax({
         dataType: 'json',
         type: "POST",
-        url: "function/filial.php",
+        url: "function/fornecedor.php",
         beforeSend: carregando,
         data: {
             'id'       : codigo,
@@ -106,17 +103,12 @@ function errosend(msg){
     var mensagem = $('.mensagem');
     mensagem.empty().html('<p class="alert alert-danger"><strong>Opa! </strong>'+msg+'</p>').fadeIn("fast");
 }
-function sucesso(msg, id){
+function sucesso(msg){
     //alert("Mensagem: "+msg);
     var mensagem = $('.mensagem');
     mensagem.empty().html('<p class="alert alert-success"><strong>OK. </strong>'+msg+'<img src="images/ok.png" alt="Carregando..."></p>').fadeIn("fast");
     setTimeout(function (){
-        var form =  $('<form action="filial.php" method="post">'+
-                  '<input type="hidden" value="'+id+'" name="id"> '+
-                 '</form>');
-        $('body').append(form);
-        form.submit();
-        //location.href = "filial.php";
+        location.href = "fornecedor.php";
     },2000);
 }
 function sucesso_delete(msg){
@@ -156,10 +148,8 @@ $('.btn-alterar').on('click', function(){
 $('.btn-acao').on('click', function(){
     var url = $(this).data('url'); // vamos buscar o valor do atributo data-name que temos no botão que foi clicado
     var id = $(this).data('id');
-    var cliente = $(this).data('cliente');
     var form = $('<form action="'+url+'" method="post">' +
         '<input type="hidden" value="'+id+'" name="id">'+
-        '<input type="hidden" value="'+cliente+'" name="cliente">'+
         '</form>');
     $('body').append(form);
     form.submit();
@@ -200,6 +190,7 @@ $('.btn-refresh').on('click', function () {
 });
 
 
+
 var documento = $('#cpfcnpj');
 
 $(document).ready(function () {
@@ -207,16 +198,17 @@ $(document).ready(function () {
     var cpfcheck = document.getElementById('checkcpf');
     var cnpjcheck = document.getElementById('checkcnpj');
     if(cpfcheck.checked === true ){
-       // alert('Cpf');
+         //alert('Cpf');
         documento.mask('000.000.000-00')
         documento.attr("placeholder","00.000.000-00");
     }else if(cnpjcheck.checked === true){
         //.mask('000.000.000-00')
-        //alert('CNPJf');
+        //alert('CNPJ');
         documento.mask('00.000.000/0000-00');
         documento.attr("placeholder","00.000.000/0000-00");
     }
 });
+
 
 
 $('.cpf').click(function(){
@@ -320,6 +312,7 @@ $('.btn-add').on('click',function () {
     }else{
         fone = "("+telefone.substr(0,2)+")"+telefone.substr(2,4)+"-"+telefone.substr(6,4);
     }
+
    var content = "<tr>"+
                   "  <td>"+fone+"</td>"+
                   "  <td>"+observacao+"</td>"+
@@ -339,19 +332,14 @@ $('.btn-add').on('click',function () {
 function limparContato(campo) {
     document.getElementById(campo).value = "";
 }
+
 $("#tbody").on("click", ".btn-remove", function(e){
     $(this).closest('tr').remove();
 });
 
 $('.btn-yes').on('click',function () {
     //  alert('click');
-    var id = $(this).data('id');
-   //location.href = "filial.php";
-    var form =  $('<form action="filial.php" method="post">'+
-        '<input type="hidden" value="'+id+'" name="id"> '+
-        '</form>');
-    $('body').append(form);
-    form.submit();
+   location.href = "fornecedor.php";
 });
 
 

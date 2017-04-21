@@ -148,14 +148,14 @@
             $pdf->SetY(35);
             $pdf->SetX(48);
             //$pdf->Rect(30,$y,80,$l);
-            $nome = utf8_decode($cliente->getDsNmFantasia());
+            $nome = utf8_decode($cliente->getDsRazaoSocial());
             $pdf->MultiCell(200,5,$nome,0,'L'); //NOME
 
 
             $pdf->SetY(40);
             $pdf->SetX(48);
             //$pdf->Rect(30,$y,80,$l);
-            $nome = utf8_decode($cliente->getNmResponsavel());
+            $nome = utf8_decode($cliente->getDsNmFantasia());
             $pdf->MultiCell(200,5,$nome,0,'L'); //NOME
 
 

@@ -9,19 +9,19 @@
 
 include_once ("ConnectionFactory.class.php");
 
-class ClienteDAO
+class FornecedorDAO
 {
      private $connection = null;
 
-     public function insert (Cliente $cliente){
+     public function insert (Fornecedor $fornecedor){
 
          $this->connection =  null;
          $teste = 0;
          $this->connection = new ConnectionFactory();
          $this->connection->beginTransaction();
          try{
-             $query = "INSERT INTO cliente 
-                       (CD_CLIENTE, DS_NM_FANTASIA, DS_RAZAO_SOCIAL, NR_CPF_CNPJ,  
+             $query = "INSERT INTO fornecedor 
+                       (CD_FORNECEDOR, DS_NM_FANTASIA, DS_RAZAO_SOCIAL, NR_CPF_CNPJ,  
                        DS_EMAIL, NR_CEP, NR_CASA, DS_COMPLEMENTO, DT_CADASTRO)
                          VALUES ( 
                          NULL, :fantasia, :razao, :cpfcnpj, :email,
@@ -31,13 +31,13 @@ class ClienteDAO
              $stmt = $this->connection->prepare($query);
 
 
-             $stmt->bindValue(":razao", $cliente->getDsRazaoSocial(), PDO::PARAM_STR);
-             $stmt->bindValue(":fantasia", $cliente->getDsNmFantasia(), PDO::PARAM_STR);
-             $stmt->bindValue(":cpfcnpj", $cliente->getNrCpfCnpj(), PDO::PARAM_STR);
-             $stmt->bindValue(":email", $cliente->getDsEmail(), PDO::PARAM_STR);
-             $stmt->bindValue(":endereco", $cliente->getNrCep(), PDO::PARAM_INT);
-             $stmt->bindValue(":numero", $cliente->getNrCasa(), PDO::PARAM_STR);
-             $stmt->bindValue(":complemento", $cliente->getDsComplemento(), PDO::PARAM_STR);
+             $stmt->bindValue(":razao", $fornecedor->getDsRazaoSocial(), PDO::PARAM_STR);
+             $stmt->bindValue(":fantasia", $fornecedor->getDsNmFantasia(), PDO::PARAM_STR);
+             $stmt->bindValue(":cpfcnpj", $fornecedor->getNrCpfCnpj(), PDO::PARAM_STR);
+             $stmt->bindValue(":email", $fornecedor->getDsEmail(), PDO::PARAM_STR);
+             $stmt->bindValue(":endereco", $fornecedor->getNrCep(), PDO::PARAM_INT);
+             $stmt->bindValue(":numero", $fornecedor->getNrCasa(), PDO::PARAM_STR);
+             $stmt->bindValue(":complemento", $fornecedor->getDsComplemento(), PDO::PARAM_STR);
              $stmt->execute();
              $teste = $this->connection->lastInsertId();
              $this->connection->commit();
@@ -52,27 +52,27 @@ class ClienteDAO
          return $teste;
      }
 
-    public function update (Cliente $cliente){
+    public function update (Fornecedor $fornecedor){
         $this->connection =  null;
         $teste = false;
         $this->connection = new ConnectionFactory();
         $this->connection->beginTransaction();
         try{
-            $query = "UPDATE cliente SET
+            $query = "UPDATE fornecedor SET
                         DS_NM_FANTASIA = :fantasia, DS_RAZAO_SOCIAL = :razao, NR_CPF_CNPJ = :cpfcnpj,  
                        DS_EMAIL = :email, NR_CEP = :endereco, NR_CASA = :numero, 
                        DS_COMPLEMENTO = :complemento, DT_ATUALIZACAO = curdate()
-                       WHERE CD_CLIENTE = :codigo";
-            //echo "Codigo: ".$cliente->getCdCliente();
+                       WHERE CD_FORNECEDOR = :codigo";
+            //echo "Codigo: ".$fornecedor->getCdFornecedor();
             $stmt = $this->connection->prepare($query);
-            $stmt->bindValue(":codigo", $cliente->getCdCliente(), PDO::PARAM_INT);
-            $stmt->bindValue(":razao", $cliente->getDsRazaoSocial(), PDO::PARAM_STR);
-            $stmt->bindValue(":fantasia", $cliente->getDsNmFantasia(), PDO::PARAM_STR);
-            $stmt->bindValue(":cpfcnpj", $cliente->getNrCpfCnpj(), PDO::PARAM_STR);
-            $stmt->bindValue(":email", $cliente->getDsEmail(), PDO::PARAM_STR);
-            $stmt->bindValue(":endereco", $cliente->getNrCep(), PDO::PARAM_INT);
-            $stmt->bindValue(":numero", $cliente->getNrCasa(), PDO::PARAM_STR);
-            $stmt->bindValue(":complemento", $cliente->getDsComplemento(), PDO::PARAM_STR);
+            $stmt->bindValue(":codigo", $fornecedor->getCdFornecedor(), PDO::PARAM_INT);
+            $stmt->bindValue(":razao", $fornecedor->getDsRazaoSocial(), PDO::PARAM_STR);
+            $stmt->bindValue(":fantasia", $fornecedor->getDsNmFantasia(), PDO::PARAM_STR);
+            $stmt->bindValue(":cpfcnpj", $fornecedor->getNrCpfCnpj(), PDO::PARAM_STR);
+            $stmt->bindValue(":email", $fornecedor->getDsEmail(), PDO::PARAM_STR);
+            $stmt->bindValue(":endereco", $fornecedor->getNrCep(), PDO::PARAM_INT);
+            $stmt->bindValue(":numero", $fornecedor->getNrCasa(), PDO::PARAM_STR);
+            $stmt->bindValue(":complemento", $fornecedor->getDsComplemento(), PDO::PARAM_STR);
             $stmt->execute();
             $this->connection->commit();
             $teste =  true;
@@ -90,7 +90,7 @@ class ClienteDAO
         $this->connection = new ConnectionFactory();
         $this->connection->beginTransaction();
         try{
-            $query = "DELETE FROM `cliente` WHERE `CD_CLIENTE` = :codigo";
+            $query = "DELETE FROM `fornecedor` WHERE `CD_FORNECEDOR` = :codigo";
             $stmt = $this->connection->prepare($query);
             $stmt->bindValue(":codigo", $codigo, PDO::PARAM_INT);
             $stmt->execute();
@@ -106,12 +106,12 @@ class ClienteDAO
 
     /**
      * @param $nome
-     * @return ClienteList
+     * @return FornecedorList
      */
     public function getList($nome, $inicio, $limite){
         //include "include/error.php";
-        require_once ("services/ClienteList.class.php");
-        require_once ("beans/Cliente.class.php");
+        require_once ("services/FornecedorList.class.php");
+        require_once ("beans/Fornecedor.class.php");
 
         $this->connection = null;
 
@@ -120,12 +120,12 @@ class ClienteDAO
         //echo "Inicio: ".$inicio."<br>";
         //echo "Fim: ".$limite."<br>";
         //echo "Nome: ".$nome;
-        $clienteList = new ClienteList();
+        $fornecedorList = new FornecedorList();
         $stmt = null;
         try {
 
                 $sql = "SELECT C.*                             
-                        FROM cliente C 
+                        FROM fornecedor C 
                       
                         WHERE C.DS_NM_FANTASIA LIKE :nome
                         ORDER BY C.DS_NM_FANTASIA ASC
@@ -139,39 +139,39 @@ class ClienteDAO
 
             $stmt->execute();
             while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-                $cliente = new Cliente();
-                //echo "Cod Cliente: ".$row['CD_CLIENTE'];
-                $cliente->setCdCliente($row['CD_CLIENTE']);
-                $cliente->setDsNmFantasia($row['DS_NM_FANTASIA']);
-                $cliente->setDsRazaoSocial($row['DS_RAZAO_SOCIAL']);
-                $cliente->setNrCpfCnpj($row['NR_CPF_CNPJ']);
-                $cliente->setDsEmail($row['DS_EMAIL']);
-                $cliente->setNrCep($row['NR_CEP']);
+                $fornecedor = new Fornecedor();
+                //echo "Cod Fornecedor: ".$row['CD_FORNECEDOR'];
+                $fornecedor->setCdFornecedor($row['CD_FORNECEDOR']);
+                $fornecedor->setDsNmFantasia($row['DS_NM_FANTASIA']);
+                $fornecedor->setDsRazaoSocial($row['DS_RAZAO_SOCIAL']);
+                $fornecedor->setNrCpfCnpj($row['NR_CPF_CNPJ']);
+                $fornecedor->setDsEmail($row['DS_EMAIL']);
+                $fornecedor->setNrCep($row['NR_CEP']);
 
-                $clienteList->addCliente($cliente);
+                $fornecedorList->addFornecedor($fornecedor);
             }
 
             $this->connection = null;
         } catch (PDOException $ex) {
             echo "Erro: ".$ex->getMessage();
         }
-        return $clienteList;
+        return $fornecedorList;
     }
 
     public function getLista($nome){
-        require_once ("../services/ClienteList.class.php");
-        require_once ("../beans/Cliente.class.php");
+        require_once ("../services/FornecedorList.class.php");
+        require_once ("../beans/Fornecedor.class.php");
 
         $this->connection = null;
 
         $this->connection = new ConnectionFactory();
 
-        $clienteList = new ClienteList();
+        $fornecedorList = new FornecedorList();
         $stmt = null;
         try {
             if($nome == ""){
                 $sql = "SELECT C.*                             
-                        FROM cliente C 
+                        FROM fornecedor C 
                         WHERE C.DS_NM_FANTASIA LIKE :nome ";
 
                 $stmt = $this->connection->prepare($sql);
@@ -179,101 +179,101 @@ class ClienteDAO
             }
             $stmt->execute();
             while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-                $cliente = new Cliente();
-                //echo "Cod Cliente: ".$row['CD_CLIENTE'];
-                $cliente->setCdCliente($row['CD_CLIENTE']);
-                $cliente->setDsNmFantasia($row['DS_NM_FANTASIA']);
-                $cliente->setDsRazaoSocial($row['DS_RAZAO_SOCIAL']);
-                $cliente->setNrCpfCnpj($row['NR_CPF_CNPJ']);
-                $cliente->setDsEmail($row['DS_EMAIL']);
-                $cliente->setNrCep($row['NR_CEP']);
-                $clienteList->addCliente($cliente);
+                $fornecedor = new Fornecedor();
+                //echo "Cod Fornecedor: ".$row['CD_FORNECEDOR'];
+                $fornecedor->setCdFornecedor($row['CD_FORNECEDOR']);
+                $fornecedor->setDsNmFantasia($row['DS_NM_FANTASIA']);
+                $fornecedor->setDsRazaoSocial($row['DS_RAZAO_SOCIAL']);
+                $fornecedor->setNrCpfCnpj($row['NR_CPF_CNPJ']);
+                $fornecedor->setDsEmail($row['DS_EMAIL']);
+                $fornecedor->setNrCep($row['NR_CEP']);
+                $fornecedorList->addFornecedor($fornecedor);
             }
             $this->connection = null;
         } catch (PDOException $ex) {
             echo "Erro: ".$ex->getMessage();
         }
-        return $clienteList;
+        return $fornecedorList;
     }
 
-    public function getCliente($codigo){
-        require_once "beans/Cliente.class.php";
-        $cliente = null;
+    public function getFornecedor($codigo){
+        require_once "beans/Fornecedor.class.php";
+        $fornecedor = null;
         $connection = null;
         $this->connection =  new ConnectionFactory();
         $sql =          "SELECT *
-                        FROM cliente C 
-                        WHERE C.CD_CLIENTE = :codigo";
+                        FROM fornecedor C 
+                        WHERE C.CD_FORNECEDOR = :codigo";
 
         try {
             $stmt = $this->connection->prepare($sql);
             $stmt->bindValue(":codigo", $codigo, PDO::PARAM_INT);
             $stmt->execute();
             if($row =  $stmt->fetch(PDO::FETCH_ASSOC)){
-                $cliente = new Cliente();
-                $cliente->setCdCliente($row['CD_CLIENTE']);
-                $cliente->setDsNmFantasia($row['DS_NM_FANTASIA']);
-                $cliente->setDsRazaoSocial($row['DS_RAZAO_SOCIAL']);
-                $cliente->setNrCpfCnpj($row['NR_CPF_CNPJ']);
-                $cliente->setDsEmail($row['DS_EMAIL']);
-                $cliente->setNrCep($row['NR_CEP']);
-                $cliente->setDsEmail($row['DS_EMAIL']);
+                $fornecedor = new Fornecedor();
+                $fornecedor->setCdFornecedor($row['CD_FORNECEDOR']);
+                $fornecedor->setDsNmFantasia($row['DS_NM_FANTASIA']);
+                $fornecedor->setDsRazaoSocial($row['DS_RAZAO_SOCIAL']);
+                $fornecedor->setNrCpfCnpj($row['NR_CPF_CNPJ']);
+                $fornecedor->setDsEmail($row['DS_EMAIL']);
+                $fornecedor->setNrCep($row['NR_CEP']);
+                $fornecedor->setDsEmail($row['DS_EMAIL']);
 
 
-                $cliente->setNrCasa($row['NR_CASA']);
-                $cliente->setDsComplemento($row['DS_COMPLEMENTO']);
+                $fornecedor->setNrCasa($row['NR_CASA']);
+                $fornecedor->setDsComplemento($row['DS_COMPLEMENTO']);
 
-                $cliente->setDtCadastro($row['DT_CADASTRO']);
+                $fornecedor->setDtCadastro($row['DT_CADASTRO']);
 
             }
             $this->connection = null;
         } catch (PDOException $ex) {
             echo "Erro: ".$ex->getMessage();
         }
-        return $cliente;
+        return $fornecedor;
     }
 
-    public function obterCliente($codigo){
-        require_once "../beans/Cliente.class.php";
+    public function obterFornecedor($codigo){
+        require_once "../beans/Fornecedor.class.php";
         require_once "../beans/Cidade.class.php";
-        $cliente = null;
+        $fornecedor = null;
         $connection = null;
         $this->connection =  new ConnectionFactory();
         $sql =          "SELECT *
-                        FROM cliente C 
-                        WHERE C.CD_CLIENTE = :codigo";
+                        FROM fornecedor C 
+                        WHERE C.CD_FORNECEDOR = :codigo";
 
         try {
             $stmt = $this->connection->prepare($sql);
             $stmt->bindValue(":codigo", $codigo, PDO::PARAM_INT);
             $stmt->execute();
             if($row =  $stmt->fetch(PDO::FETCH_ASSOC)){
-                $cliente = new Cliente();
-                //echo "Cod Cliente: ".$row['CD_CLIENTE'];
-                $cliente->setCdCliente($row['CD_CLIENTE']);
-                $cliente->setDsNmFantasia($row['DS_NM_FANTASIA']);
-                $cliente->setDsRazaoSocial($row['DS_RAZAO_SOCIAL']);
-                $cliente->setNrCpfCnpj($row['NR_CPF_CNPJ']);
-                $cliente->setDsEmail($row['DS_EMAIL']);
-                $cliente->setNrCep($row['NR_CEP']);
-                $cliente->setNrCasa($row['NR_CASA']);
-                $cliente->setDsComplemento($row['DS_COMPLEMENTO']);
-                $cliente->setDtCadastro($row['DT_CADASTRO']);
+                $fornecedor = new Fornecedor();
+                //echo "Cod Fornecedor: ".$row['CD_FORNECEDOR'];
+                $fornecedor->setCdFornecedor($row['CD_FORNECEDOR']);
+                $fornecedor->setDsNmFantasia($row['DS_NM_FANTASIA']);
+                $fornecedor->setDsRazaoSocial($row['DS_RAZAO_SOCIAL']);
+                $fornecedor->setNrCpfCnpj($row['NR_CPF_CNPJ']);
+                $fornecedor->setDsEmail($row['DS_EMAIL']);
+                $fornecedor->setNrCep($row['NR_CEP']);
+                $fornecedor->setNrCasa($row['NR_CASA']);
+                $fornecedor->setDsComplemento($row['DS_COMPLEMENTO']);
+                $fornecedor->setDtCadastro($row['DT_CADASTRO']);
             }
             $this->connection = null;
         } catch (PDOException $ex) {
             echo "Erro: ".$ex->getMessage();
         }
-        return $cliente;
+        return $fornecedor;
     }
 
 
-    public function getTotalCliente(){
-        $cliente = 0;
+    public function getTotalFornecedor(){
+        $fornecedor = 0;
         $connection = null;
         $this->connection =  new ConnectionFactory();
         $sql =          "SELECT COUNT(*) TOTAL
-                        FROM cliente C 
+                        FROM fornecedor C 
                         ";
 
         try {
@@ -281,12 +281,12 @@ class ClienteDAO
 
             $stmt->execute();
             if($row =  $stmt->fetch(PDO::FETCH_ASSOC)){
-                $cliente = $row['TOTAL'];
+                $fornecedor = $row['TOTAL'];
             }
             $this->connection = null;
         } catch (PDOException $ex) {
             echo "Erro: ".$ex->getMessage();
         }
-        return $cliente;
+        return $fornecedor;
     }
 }
