@@ -23,6 +23,12 @@ $pagina = (isset($_POST['pagina'])) ? $_POST['pagina'] : 1;
 include_once "controller/ClienteController.class.php";
 include_once "beans/Cliente.class.php";
 include_once "services/ClienteListIterator.class.php";
+include_once "controller/FilialController.class.php";
+include_once "beans/Filial.class.php";
+include_once "services/FilialListIterator.class.php";
+include_once "controller/DepartamentoController.class.php";
+include_once "beans/Departamento.class.php";
+include_once "services/DepartamentoListIterator.class.php";
 
 
 $clienteController = new ClienteController();
@@ -43,6 +49,14 @@ $lista = $clienteController->getList($descricao, $inicio, $registros);
 $pListIterator = new ClienteListIterator($lista);
 
 
+$filial = new Filial();
+$filialController = new FilialController();
+
+$departamento = new Departamento();
+$departamentoController = new DepartamentoController();
+
+
+
 
 ?>
 
@@ -50,7 +64,9 @@ $pListIterator = new ClienteListIterator($lista);
 
 
  <link href="css/btn-style.css" type="text/css" rel="stylesheet">
- <body class="sticky-header left-side-collapsed"  >
+<link href="css/tree.css" type="text/css" rel="stylesheet">
+  <body class="sticky-header left-side-collapsed"  >
+
     <section>
     <!-- left side start-->
 		<?php include "include/menu.html"?>
@@ -111,7 +127,7 @@ $pListIterator = new ClienteListIterator($lista);
             <div class="graphs">
                 <div class="xs tabls">
                     <div class="bs-example4" data-example-id="contextual-table">
-                        <table class="table table-hover">
+                        <table class="table table-hover" id="tree1">
                             <thead>
                             <tr>
                                 <th>#</th>
@@ -130,7 +146,48 @@ $pListIterator = new ClienteListIterator($lista);
                                 ?>
                                 <tr>
                                     <th scope="row"><?php echo $cliente->getCdCliente(); ?></th>
-                                    <td><?php echo $cliente->getDsNmFantasia(); ?></td>
+                                    <td>
+
+                                            <ul >
+                                                <li><a href="#cliente"
+                                                    data-id="<?php echo $cliente->getCdCliente(); ?>"
+                                                    data-url="filial.php"
+                                                    class="btn-acao"><?php echo $cliente->getDsNmFantasia(); ?></a>
+                                                    <ul>
+                                                        <?php $filialList = $filialController->getListaFilial($cliente->getCdCliente());
+                                                              $filialListIterator = new FilialListIterator($filialList);
+                                                              while ($filialListIterator->hasNextFilial()) {
+                                                                      $filial = $filialListIterator->getNextFilial();
+
+                                                                  ?>
+                                                                  <li>
+                                                                      <a href="#div" data-url="departamento.php"
+                                                                         data-id="<?php echo $filial->getCdFilial(); ?>"
+                                                                         data-cliente="<?php echo $filial->getCliente()->getCdCliente(); ?>"
+                                                                         class="btn-arvore">
+                                                                          <?php echo $filial->getDsNmFantasia(); ?>
+                                                                      </a>
+                                                                      <ul>
+                                                                          <?php
+                                                                          $departamentoList = $departamentoController->getListaDepartamento($filial->getCdFilial());
+                                                                          $departamentoListIterator = new DepartamentoListIterator($departamentoList);
+                                                                          while ($departamentoListIterator->hasNextDepartamento()){
+                                                                                $departamento = $departamentoListIterator->getNextDepartamento();
+
+                                                                          ?>
+                                                                              <li><?php echo $departamento->getDsDepartamento(); ?></li>
+                                                                          <?php } ?>
+                                                                      </ul>
+                                                                  </li>
+                                                                  <?php
+                                                                  }
+                                                                  ?>
+                                                    </ul>
+
+                                                </li>
+
+                                            </ul>
+                                    </td>
                                     <td><?php echo $cliente->getDsRazaoSocial(); ?></td>
                                     <td><?php
                                         $cpfcnpj = "";
@@ -284,6 +341,7 @@ $pListIterator = new ClienteListIterator($lista);
             });
         </script>
         <script src="js/cliente.js"></script>
+        <script src="js/tree.js"></script>
     </section>
 
  </body>

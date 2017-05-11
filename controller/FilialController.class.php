@@ -66,4 +66,11 @@ class FilialController
         return $retorno;
     }
 
+    public function getListaFilial($cliente){
+        require_once ("model/FilialDAO.class.php");
+        $filialDao = new FilialDAO();
+        $retorno = $filialDao->getListaFilial($cliente);
+        return $retorno;
+    }
+
 }

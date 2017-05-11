@@ -36,6 +36,13 @@ class DepartamentoController
         return $retorno;
     }
 
+    public function getListaDepartamento($filial){
+        require_once ("model/DepartamentoDAO.class.php");
+        $departamentoDao = new DepartamentoDAO();
+        $retorno = $departamentoDao->getListaDepartamento($filial);
+        return $retorno;
+    }
+
     public function getLista($cliente, $departamento, $inicio, $limite){
         require_once ("../model/DepartamentoDAO.class.php");
         $departamentoDao = new DepartamentoDAO();

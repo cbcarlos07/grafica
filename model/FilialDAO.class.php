@@ -159,6 +159,49 @@ class FilialDAO
         return $filialList;
     }
 
+    public function getListaFilial($cliente){
+        require_once ("services/FilialList.class.php");
+        require_once ("beans/Filial.class.php");
+        require_once ("beans/Cliente.class.php");
+
+        $this->connection = null;
+
+        $this->connection = new ConnectionFactory();
+
+        $filialList = new FilialList();
+
+        try {
+
+            $sql = "SELECT F.*
+                        FROM filial F
+                        WHERE F.CD_CLIENTE = :cliente";
+            $stmt = $this->connection->prepare($sql);
+            $stmt->bindValue(":cliente", $cliente, PDO::PARAM_INT);
+
+            $stmt->execute();
+            while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+                $filial = new Filial();
+                $filial->setCdFilial($row['CD_FILIAL']);
+                $filial->setCliente(new Cliente());
+                $filial->getCliente()->setCdCliente($row['CD_CLIENTE']);
+                $filial->setDsNmFantasia($row['DS_NM_FANTASIA']);
+                $filial->setDsRazaoSocial($row['DS_RAZAO_SOCIAL']);
+                $filial->setNrCep($row['NR_CEP']);
+                $filial->setNrCasa($row['NR_CASA']);
+                $filial->setDsComplemento($row['DS_COMPLEMENTO']);
+                $filial->setDsEmail($row['DS_EMAIL']);
+                $filial->setNrCpfCnpj($row['NR_CPF_CNPJ']);
+
+                $filialList->addFilial($filial);
+            }
+            $this->connection = null;
+        } catch (PDOException $ex) {
+            echo "Erro: ".$ex->getMessage();
+        }
+        return $filialList;
+    }
+
+
     public function getLista($cliente){
         require_once ("../services/FilialList.class.php");
         require_once ("../beans/Filial.class.php");

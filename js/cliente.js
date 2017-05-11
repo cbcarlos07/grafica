@@ -135,6 +135,18 @@ $('.btn-voltar').on('click', function(){
     form.submit();
 });
 
+$('.btn-arvore').on('click', function(){
+    var url = $(this).data('url'); // vamos buscar o valor do atributo data-name que temos no botão que foi clicado
+    var id  = $(this).data('id');
+    var cliente  = $(this).data('cliente');
+    var form = $('<form action="'+url+'" method="post">' +
+            '<input type="hidden" value="'+id+'" name="id">'+
+            '<input type="hidden" value="'+cliente+'" name="cliente">'+
+        '</form>');
+    $('body').append(form);
+    form.submit();
+});
+
 $('.btn-alterar').on('click', function(){
     var url = $(this).data('url'); // vamos buscar o valor do atributo data-name que temos no botão que foi clicado
     var id = $(this).data('id');

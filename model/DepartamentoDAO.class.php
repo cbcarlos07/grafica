@@ -140,6 +140,43 @@ class DepartamentoDAO
         return $departamentoList;
     }
 
+    public function getListaDepartamento($filial){
+        require_once ("services/DepartamentolList.class.php");
+        require_once ("beans/Departamento.class.php");
+        require_once ("beans/Filial.class.php");
+
+        $this->connection = null;
+
+        $this->connection = new ConnectionFactory();
+
+        $departamentoList = new DepartamentoList();
+
+        try {
+
+            $sql = "SELECT F.*
+                        FROM departamento F
+                        WHERE F.CD_FILIAL = :filial";
+            $stmt = $this->connection->prepare($sql);
+            $stmt->bindValue(":filial", $filial, PDO::PARAM_INT);
+
+            $stmt->execute();
+            while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+                $departamento = new Departamento();
+                $departamento->setCdDepartamento($row['CD_DEPARTAMENTO']);
+                $departamento->setFilial(new Filial());
+                $departamento->getFilial()->setCdFilial($row['CD_FILIAL']);
+                $departamento->setDsDepartamento($row['DS_DEPARTAMENTO']);
+                $departamento->setNmResponsavel($row['NM_RESPONSAVEL']);
+
+                $departamentoList->addDepartamento($departamento);
+            }
+            $this->connection = null;
+        } catch (PDOException $ex) {
+            echo "Erro: ".$ex->getMessage();
+        }
+        return $departamentoList;
+    }
+
     public function getLista($filial){
         require_once ("../services/DepartamentoList.class.php");
         require_once ("../beans/Departamento.class.php");
